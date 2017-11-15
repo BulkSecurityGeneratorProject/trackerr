@@ -14,8 +14,8 @@
         JHipster core tables.
         The initial schema has the '00000000000001' id, so that it is over-written if we re-generate it.
     -->
-    <changeSet id="00000000000001" author="jhipster">
-        <createTable tableName="jhi_user">
+    <changeSet id="0000000000000000000" author="jhipster">
+        <createTable tableName="User">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -48,60 +48,65 @@
             <column name="last_modified_date" type="timestamp"/>
         </createTable>
         <createIndex indexName="idx_user_login"
-            tableName="jhi_user"
+            tableName="User"
             unique="true">
             <column name="login" type="varchar(50)"/>
         </createIndex>
 
         <createIndex indexName="idx_user_email"
-            tableName="jhi_user"
+            tableName="User"
             unique="true">
             <column name="email" type="varchar(100)"/>
         </createIndex>
-        <createTable tableName="jhi_authority">
-            <column name="name" type="varchar(50)">
+        <createTable tableName="Authority">
+            <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
+            <column name="name" type="varchar(50)">
+                <constraints primaryKey="true" nullable="false" unique="true" uniqueConstraintName="name_UNIQUE"/>
+            </column>
         </createTable>
 
-        <createTable tableName="jhi_user_authority">
+        <createTable tableName="UserHasAuthority">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" unique="true" uniqueConstraintName="id_UNIQUE"/>
+            </column>
             <column name="user_id" type="bigint">
-                <constraints nullable="false"/>
+                <constraints nullable="false" primaryKey="true" />
             </column>
-            <column name="authority_name" type="varchar(50)">
-                <constraints nullable="false"/>
+            <column name="authority_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" />
             </column>
         </createTable>
 
-        <addPrimaryKey columnNames="user_id, authority_name" tableName="jhi_user_authority"/>
 
-        <addForeignKeyConstraint baseColumnNames="authority_name"
-                                 baseTableName="jhi_user_authority"
+        <addForeignKeyConstraint baseColumnNames="authority_id"
+                                 baseTableName="UserHasAuthority"
                                  constraintName="fk_authority_name"
-                                 referencedColumnNames="name"
-                                 referencedTableName="jhi_authority"/>
+                                 referencedColumnNames="id"
+                                 referencedTableName="Authority"/>
         <addForeignKeyConstraint baseColumnNames="user_id"
-                                 baseTableName="jhi_user_authority"
+                                 baseTableName="UserHasAuthority"
                                  constraintName="fk_user_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="jhi_user"/>
+                                 referencedTableName="User"/>
         <loadData encoding="UTF-8"
                   file="config/liquibase/users.csv"
                   separator=";"
-                  tableName="jhi_user">
+                  tableName="User">
             <column name="activated" type="boolean"/>
             <column name="created_date" type="timestamp"/>
         </loadData>
-        <dropDefaultValue tableName="jhi_user" columnName="created_date" columnDataType="datetime"/>
+        <dropDefaultValue tableName="User" columnName="created_date" columnDataType="datetime"/>
         <loadData encoding="UTF-8"
                   file="config/liquibase/authorities.csv"
                   separator=";"
-                  tableName="jhi_authority"/>
+                  tableName="Authority"/>
 
         <loadData encoding="UTF-8"
                   file="config/liquibase/users_authorities.csv"
                   separator=";"
-                  tableName="jhi_user_authority"/>
+                  tableName="UserHasAuthority"/>
         <createTable tableName="jhi_persistent_audit_event">
             <column name="event_id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
@@ -143,4 +148,180 @@
                                  referencedColumnNames="event_id"
                                  referencedTableName="jhi_persistent_audit_event"/>
     </changeSet>
+
+
+
+    <changeSet author="leonid (generated)" id="1510002154480-2">
+        <createTable tableName="Project">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="projectDescription" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="projectName" type="VARCHAR(450)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="projectName_UNIQUE"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="leonid (generated)" id="15100024944880-3">
+        <createTable tableName="Task">
+            <column autoIncrement="true" name="id" type="BIGINT" >
+                <constraints nullable="false" primaryKey="true" unique="true" uniqueConstraintName="id_UNIQUE" />
+
+            </column>
+            <column name="Project_id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="taskName" type="VARCHAR(450)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="taskName_UNIQUE"/>
+            </column>
+            <column name="taskDescr" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="15100082254480-4">
+        <createTable tableName="TaskComment">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true" uniqueConstraintName="id_UNIQUE" unique="true"/>
+            </column>
+            <column name="Task_has_jhi_user_id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="Task_has_jhi_user_Task_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Task_has_jhi_user_Task_Project_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Task_has_jhi_user_jhi_user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="comment" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="commentDate" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="15100022547480-5">
+        <createTable tableName="TaskHasUser">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true" uniqueConstraintName="id_UNIQUE" unique="true" />
+            </column>
+            <column name="task_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="Task_Project_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="jhi_user_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="leonid (generated)" id="15100022547480-8">
+        <createTable tableName="UserHasProject">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false"  primaryKey="true" uniqueConstraintName="id_UNIQUE" unique="true"/>
+            </column>
+            <column name="jhi_user_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="Project_id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+
+
+
+    <changeSet author="leonid (generated)" id="1510002254480-25">
+        <addUniqueConstraint columnNames="authority_id, user_id" constraintName="index5" tableName="UserHasAuthority"/>
+    </changeSet>
+
+    <changeSet author="leonid (generated)" id="1510002254480-28">
+        <createIndex indexName="fk_TaskComment_Task_has_jhi_user1_idx" tableName="TaskComment">
+            <column name="Task_has_jhi_user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510002254480-29">
+        <createIndex indexName="fk_Task_Project1_idx" tableName="Task">
+            <column name="Project_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510002254480-30">
+        <createIndex indexName="fk_Task_has_jhi_user_Task1_idx" tableName="TaskHasUser">
+            <column name="Task_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510002254480-31">
+        <createIndex indexName="fk_Task_has_jhi_user_jhi_user1_idx" tableName="TaskHasUser">
+            <column name="jhi_user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510002254480-32">
+        <createIndex indexName="fk_authority_name" tableName="UserHasAuthority">
+            <column name="authority_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510002254480-33">
+        <createIndex indexName="fk_jhi_user_has_Project_Project1_idx" tableName="UserHasProject">
+            <column name="Project_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510002254480-34">
+        <createIndex indexName="fk_jhi_user_has_Project_jhi_user1_idx" tableName="UserHasProject">
+            <column name="jhi_user_id"/>
+        </createIndex>
+    </changeSet>
+    <!--<changeSet author="leonid (generated)" id="1510002254480-35">-->
+        <!--<createIndex indexName="idx_persistent_audit_event" tableName="jhi_persistent_audit_event">-->
+            <!--<column name="principal"/>-->
+            <!--<column name="event_date"/>-->
+        <!--</createIndex>-->
+    <!--</changeSet>-->
+    <!--<changeSet author="leonid (generated)" id="1510002254480-36">-->
+        <!--<createIndex indexName="idx_persistent_audit_evt_data" tableName="jhi_persistent_audit_evt_data">-->
+            <!--<column name="event_id"/>-->
+        <!--</createIndex>-->
+    <!--</changeSet>-->
+    <changeSet author="leonid (generated)" id="1510002254480-37">
+        <createIndex indexName="index4" tableName="UserHasAuthority">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510002254480-38">
+        <addForeignKeyConstraint baseColumnNames="Task_has_jhi_user_id" baseTableName="TaskComment" constraintName="fk_TaskComment_Task_has_jhi_user1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="TaskHasUser"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510002254480-39">
+        <addForeignKeyConstraint baseColumnNames="Project_id" baseTableName="Task" constraintName="fk_Task_Project1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="Project"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510002254480-40">
+        <addForeignKeyConstraint baseColumnNames="task_id" baseTableName="TaskHasUser" constraintName="fk_Task_has_jhi_user_Task1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="Task"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510002254480-41">
+        <addForeignKeyConstraint baseColumnNames="jhi_user_id" baseTableName="TaskHasUser" constraintName="fk_Task_has_jhi_user_jhi_user1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="User"/>
+    </changeSet>
+    <!--<changeSet author="leonid (generated)" id="1510002254480-42">-->
+        <!--<addForeignKeyConstraint baseColumnNames="authority_name" baseTableName="UserHasAuthority" constraintName="fk_authority_name" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="name" referencedTableName="Authority"/>-->
+    <!--</changeSet>-->
+    <!--<changeSet author="leonid (generated)" id="1510002254480-43">-->
+        <!--<addForeignKeyConstraint baseColumnNames="event_id" baseTableName="jhi_persistent_audit_evt_data" constraintName="fk_evt_pers_audit_evt_data" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="event_id" referencedTableName="jhi_persistent_audit_event"/>-->
+    <!--</changeSet>-->
+    <changeSet author="leonid (generated)" id="1510002254480-44">
+        <addForeignKeyConstraint baseColumnNames="Project_id" baseTableName="UserHasProject" constraintName="fk_jhi_user_has_Project_Project1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="Project"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510002254480-45">
+        <addForeignKeyConstraint baseColumnNames="jhi_user_id" baseTableName="UserHasProject" constraintName="fk_jhi_user_has_Project_jhi_user1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="User"/>
+    </changeSet>
+    <!--<changeSet author="leonid (generated)" id="1510002254480-46">-->
+        <!--<addForeignKeyConstraint baseColumnNames="user_id" baseTableName="UserHasAuthority" constraintName="fk_user_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="User"/>-->
+    <!--</changeSet>-->
+
 </databaseChangeLog>

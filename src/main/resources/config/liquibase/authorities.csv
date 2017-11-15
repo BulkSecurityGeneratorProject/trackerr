@@ -1,3 +1,5 @@
-name
-ROLE_ADMIN
-ROLE_USER
+id;name
+1;ROLE_ADMIN
+2;ROLE_USER
+3;Manager
+4;Developer

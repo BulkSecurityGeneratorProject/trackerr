@@ -12,6 +12,7 @@
                 "task": "Task",
                 "comment": "Comment",
                 "status": "Status",
+                "authority": "Authority",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

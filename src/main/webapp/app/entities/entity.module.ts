@@ -5,6 +5,7 @@ import { TrackerrProjectModule } from './project/project.module';
 import { TrackerrTaskModule } from './task/task.module';
 import { TrackerrCommentModule } from './comment/comment.module';
 import { TrackerrStatusModule } from './status/status.module';
+import { TrackerrAuthorityModule } from './authority/authority.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
@@ -14,6 +15,7 @@ import { TrackerrStatusModule } from './status/status.module';
         TrackerrTaskModule,
         TrackerrCommentModule,
         TrackerrStatusModule,
+        TrackerrAuthorityModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],

@@ -37,7 +37,7 @@ public class ProjectResource {
     private final ProjectRepository projectRepository;
     private final UserRepository userRepository;
     public ProjectResource(ProjectRepository projectRepository, UserRepository userRepository) {
-this.userRepository=userRepository;
+        this.userRepository=userRepository;
         this.projectRepository = projectRepository;
     }
 
@@ -56,13 +56,13 @@ this.userRepository=userRepository;
             throw new BadRequestAlertException("A new project cannot already have an ID", ENTITY_NAME, "idexists");
         }
         User currentUser = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get() ;
-        project.addUser(currentUser);
         for (User user: project.getUsers()   ) {
             project.getUsers().remove(user);
             user= userRepository.findOneWithEager(user.getId());
             project.addUser(user);
             user.addProjects(project);
         }
+        project.addUser(currentUser);
 
         Project result = projectRepository.save(project);
         for (User user:result.getUsers()    ) {
@@ -92,11 +92,11 @@ this.userRepository=userRepository;
         }
         for (User user: project.getUsers()   ) {
             project.getUsers().remove(user);
-           user= userRepository.findOneWithEager(user.getId());
-           project.addUser(user);
-           user.addProjects(project);
+            user= userRepository.findOneWithEager(user.getId());
+            project.addUser(user);
+            user.addProjects(project);
         }
-     Project result = projectRepository.save(project);
+        Project result = projectRepository.save(project);
         for (User user:result.getUsers()    ) {
             userRepository.save(user);
 
@@ -120,10 +120,10 @@ this.userRepository=userRepository;
 
 
         for (Project project:projects
-             ) {
+            ) {
 
             for (Task task: project.getTasks()
-                 ) {
+                ) {
                 task.setProject(new Project());
                 task.setUsers(new HashSet<>());
             }
@@ -140,7 +140,7 @@ this.userRepository=userRepository;
         System.out.println(jsonInString);
 
         return projects;
-        }
+    }
 
     /**
      * GET  /projects/:id : get the "id" project.

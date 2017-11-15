@@ -30,7 +30,7 @@ public class TaskResource {
     private static final String ENTITY_NAME = "task";
 
     private final TaskRepository taskRepository;
-private  final UserRepository userRepository;
+    private  final UserRepository userRepository;
     public TaskResource(TaskRepository taskRepository, UserRepository userRepository) {
         this.taskRepository = taskRepository;
         this.userRepository=userRepository;
@@ -54,7 +54,7 @@ private  final UserRepository userRepository;
             task.getUsers().remove(user);
 
             user= userRepository.findOneWithEager(user.getId());
-           // task.addUser(user);
+            // task.addUser(user);
             user.addTask(task);
         }
         Task result = taskRepository.save(task);
@@ -88,7 +88,7 @@ private  final UserRepository userRepository;
             task.getUsers().remove(user);
 
             user= userRepository.findOneWithEager(user.getId());
-           // task.addUser(user);
+            // task.addUser(user);
             user.addTask(task);
             userRepository.save(user);
         }
@@ -110,7 +110,7 @@ private  final UserRepository userRepository;
     public List<Task> getAllTasks() {
         log.debug("REST request to get all Tasks");
         return taskRepository.findAll();
-        }
+    }
 
     /**
      * GET  /tasks/:id : get the "id" task.

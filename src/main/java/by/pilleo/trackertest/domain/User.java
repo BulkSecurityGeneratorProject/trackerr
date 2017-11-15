@@ -12,17 +12,14 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Locale;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.time.Instant;
 
 /**
  * A user.
  */
 @Entity
-@Table(name = "jhi_user")
+@Table(name = "User")
 
 public class User extends AbstractAuditingEntity implements Serializable {
 
@@ -85,12 +82,101 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @JsonIgnore
     @ManyToMany
     @JoinTable(
-        name = "jhi_user_authority",
+        name = "UserHasAuthority",
         joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
-        inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "name")})
+        inverseJoinColumns = {@JoinColumn(name = "authority_id", referencedColumnName = "id")})
 
     @BatchSize(size = 20)
     private Set<Authority> authorities = new HashSet<>();
+
+
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(
+        name = "UserHasProject",
+        joinColumns = {@JoinColumn(name = "jhi_user_id", referencedColumnName = "id")},
+        inverseJoinColumns = {@JoinColumn(name = "project_id", referencedColumnName = "id")})
+
+    @BatchSize(size = 20)
+    private Set<Project> projects = new HashSet<>();
+
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(
+        name = "TaskHasUser",
+        joinColumns = {@JoinColumn(name = "jhi_user_id", referencedColumnName = "id")},
+        inverseJoinColumns = {@JoinColumn(name = "task_id", referencedColumnName = "id")})
+
+    @BatchSize(size = 20)
+    private Set<Task> tasks = new HashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private Set<Comment> comments = new HashSet<>();
+
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public User comments(Set<Comment> comments) {
+        this.comments = comments;
+        return this;
+    }
+
+    public User addComments(Comment comment) {
+        this.comments.add(comment);
+        comment.setUser(this);
+        return this;
+    }
+
+    public User removeComments(Comment comment) {
+        this.comments.remove(comment);
+        comment.setUser(null);
+        return this;
+    }
+
+
+    public User addTask(Task comment) {
+        this.tasks.add(comment);
+        comment.getUsers().add(this);
+        return this;
+    }
+
+    public User removeTask(Task comment) {
+        this.tasks.remove(comment);
+        comment.getUsers().remove(comment);
+        return this;
+    }
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public Set<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(Set<Project> projects) {
+        this.projects = projects;
+    }
+
+    public User addProjects(Project project) {
+        this.projects.add(project);
+        project.getUsers().add(this);
+        return this;
+    }
+
+    public User removeProject(Project project) {
+        this.projects.remove(project);
+        project.getUsers().remove(this);
+        return this;
+    }
+    public Set<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(Set<Task> tasks) {
+        this.tasks = tasks;
+    }
 
     public Long getId() {
         return id;
@@ -174,11 +260,11 @@ public class User extends AbstractAuditingEntity implements Serializable {
     }
 
     public Instant getResetDate() {
-       return resetDate;
+        return resetDate;
     }
 
     public void setResetDate(Instant resetDate) {
-       this.resetDate = resetDate;
+        this.resetDate = resetDate;
     }
 
     public String getLangKey() {

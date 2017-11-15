@@ -1,10 +1,7 @@
 package by.pilleo.trackertest.domain;
 
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Column;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -13,15 +10,20 @@ import java.io.Serializable;
  * An authority (a security role) used by Spring Security.
  */
 @Entity
-@Table(name = "jhi_authority")
-public class Authority implements Serializable {
+@Table(name = "Authority")
+public class
+Authority implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @NotNull
-    @Size(max = 50)
     @Id
-    @Column(length = 50)
+    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private int id;
+
+    @Size(max = 50)
+    @Column(length = 50, name = "name")
     private String name;
 
     public String getName() {
@@ -56,5 +58,14 @@ public class Authority implements Serializable {
         return "Authority{" +
             "name='" + name + '\'' +
             "}";
+    }
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

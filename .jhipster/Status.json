@@ -1,0 +1,25 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "task",
+            "otherEntityName": "task",
+            "otherEntityField": "id",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "status(id)"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "statusName",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20171115055553",
+    "entityTableName": "status",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false
+}

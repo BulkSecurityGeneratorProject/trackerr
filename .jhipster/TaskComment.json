@@ -1,0 +1,20 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "comment",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "commDate",
+            "fieldType": "Instant"
+        }
+    ],
+    "changelogDate": "20171105224535",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "TaskComment",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no"
+}

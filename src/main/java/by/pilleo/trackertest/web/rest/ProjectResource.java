@@ -9,8 +9,6 @@ import by.pilleo.trackertest.security.SecurityUtils;
 import by.pilleo.trackertest.web.rest.errors.BadRequestAlertException;
 import by.pilleo.trackertest.web.rest.util.HeaderUtil;
 import com.codahale.metrics.annotation.Timed;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -113,9 +111,9 @@ public class ProjectResource {
      */
     @GetMapping("/projects")
     @Timed
-    public List<Project> getAllProjects() {
+    public List<Project> getAllProjectsOfCurrentUser() {
         log.debug("REST request to get all Projects");
-        List<Project> projects=projectRepository.getAllProjects();
+        List<Project> projects=projectRepository.getAllProjectsOfCurrentUser(userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get());
 
 
 
@@ -130,14 +128,14 @@ public class ProjectResource {
         }
 
 
-        ObjectMapper mapper = new ObjectMapper();
-        String jsonInString = null;
-        try {
-            jsonInString = mapper.writeValueAsString(projects);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        System.out.println(jsonInString);
+//        ObjectMapper mapper = new ObjectMapper();
+//        String jsonInString = null;
+//        try {
+//            jsonInString = mapper.writeValueAsString(projects);
+//        } catch (JsonProcessingException e) {
+//            e.printStackTrace();
+//        }
+//        System.out.println(jsonInString);
 
         return projects;
     }

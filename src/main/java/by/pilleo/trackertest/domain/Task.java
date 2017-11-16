@@ -33,8 +33,7 @@ public class Task implements Serializable {
     @JsonIgnore
     private Set<Comment> comments = new HashSet<>();
 
-    @OneToOne(mappedBy = "task")
-    @JsonIgnore
+    @ManyToOne
     private Status status;
 
     @ManyToOne
@@ -134,25 +133,25 @@ public class Task implements Serializable {
         return users;
     }
 
-    public Task users(Set<User> userrs) {
-        this.users = userrs;
+    public Task users(Set<User> users) {
+        this.users = users;
         return this;
     }
 
-    public Task addUsers(User userr) {
-        this.users.add(userr);
-        userr.getTasks().add(this);
+    public Task addUsers(User user) {
+        this.users.add(user);
+        user.getTasks().add(this);
         return this;
     }
 
-    public Task removeUsers(User userr) {
-        this.users.remove(userr);
-        userr.getTasks().remove(this);
+    public Task removeUsers(User user) {
+        this.users.remove(user);
+        user.getTasks().remove(this);
         return this;
     }
 
-    public void setUsers(Set<User> userrs) {
-        this.users = userrs;
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

@@ -3,6 +3,7 @@
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <include file="config/liquibase/changelog/20171115055553_added_entity_Status.xml" relativeToChangelogFile="false"/>
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
     <!--<include file="config/liquibase/changelog/20171106205414_changelog.xml" relativeToChangelogFile="false"/>-->
@@ -18,6 +19,6 @@
     <include file="config/liquibase/changelog/20171112133621_added_entity_constraints_Book.xml" relativeToChangelogFile="false"/>
     <!--<include file="config/liquibase/changelog/20171105224533_added_entity_constraints_Task.xml" relativeToChangelogFile="false"/>-->
     <include file="config/liquibase/changelog/20171114141829_added_entity_constraints_Comment.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20171115055553_added_entity_constraints_Status.xml" relativeToChangelogFile="false"/>
+    <!--<include file="config/liquibase/changelog/20171115055553_added_entity_constraints_Status.xml" relativeToChangelogFile="false"/>-->
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

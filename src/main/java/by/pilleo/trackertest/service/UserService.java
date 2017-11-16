@@ -84,7 +84,7 @@ public class UserService {
     public User registerUser(ManagedUserVM userDTO) {
 
         User newUser = new User();
-        Authority authority = authorityRepository.findOne(AuthoritiesConstants.USER);
+        Authority authority = authorityRepository.findOneByName(AuthoritiesConstants.USER);
         Set<Authority> authorities = new HashSet<>();
         String encryptedPassword = passwordEncoder.encode(userDTO.getPassword());
         newUser.setLogin(userDTO.getLogin());
@@ -100,6 +100,10 @@ public class UserService {
         // new user gets registration key
         newUser.setActivationKey(RandomUtil.generateActivationKey());
         authorities.add(authority);
+        if(userDTO.getAuthorities()!=null) {
+            Set<Authority> set= userDTO.getAuthorities().stream().map(e->authorityRepository.findOneByName(e)).collect(Collectors.toSet());
+            authorities.addAll(set);
+        }
         newUser.setAuthorities(authorities);
         userRepository.save(newUser);
         log.debug("Created Information for User: {}", newUser);

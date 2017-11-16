@@ -1,9 +1,10 @@
 package by.pilleo.trackertest.domain;
 
-
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A Status.
@@ -18,12 +19,12 @@ public class Status implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "statusName")
+    @Column(name = "status_name")
     private String statusName;
 
-    @OneToOne
-    @JoinColumn(unique = true)
-    private Task task;
+    @OneToMany(mappedBy = "status")
+    //@JsonIgnore
+    private Set<Task> tasks = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -47,17 +48,29 @@ public class Status implements Serializable {
         this.statusName = statusName;
     }
 
-    public Task getTask() {
-        return task;
+    public Set<Task> getTasks() {
+        return tasks;
     }
 
-    public Status task(Task task) {
-        this.task = task;
+    public Status tasks(Set<Task> tasks) {
+        this.tasks = tasks;
         return this;
     }
 
-    public void setTask(Task task) {
-        this.task = task;
+    public Status addTask(Task task) {
+        this.tasks.add(task);
+        task.setStatus(this);
+        return this;
+    }
+
+    public Status removeTask(Task task) {
+        this.tasks.remove(task);
+        task.setStatus(null);
+        return this;
+    }
+
+    public void setTasks(Set<Task> tasks) {
+        this.tasks = tasks;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

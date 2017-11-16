@@ -165,7 +165,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet author="leonid (generated)" id="15100024944880-3">
+    <changeSet author="leonid (generated)" id="15110024944880-3">
         <createTable tableName="Task">
             <column autoIncrement="true" name="id" type="BIGINT" >
                 <constraints nullable="false" primaryKey="true" unique="true" uniqueConstraintName="id_UNIQUE" />
@@ -180,6 +180,9 @@
             <column name="taskDescr" type="TEXT">
                 <constraints nullable="false"/>
             </column>
+            <column name="status_id" type="BIGINT">
+                <constraints nullable="true" primaryKey="false"/>
+            </column>
         </createTable>
     </changeSet>
     <changeSet author="leonid (generated)" id="15100082254480-4">
@@ -193,9 +196,7 @@
             <column name="Task_has_jhi_user_Task_id" type="INT">
                 <constraints nullable="false"/>
             </column>
-            <column name="Task_has_jhi_user_Task_Project_id" type="INT">
-                <constraints nullable="false"/>
-            </column>
+
             <column name="Task_has_jhi_user_jhi_user_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
@@ -207,7 +208,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="leonid (generated)" id="15100022547480-5">
+    <changeSet author="leonid (generated)" id="15100122547480-5">
         <createTable tableName="TaskHasUser">
             <column autoIncrement="true" name="id" type="INT">
                 <constraints nullable="false" primaryKey="true" uniqueConstraintName="id_UNIQUE" unique="true" />
@@ -215,16 +216,14 @@
             <column name="task_id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column name="Task_Project_id" type="INT">
-                <constraints nullable="false"/>
-            </column>
+
             <column name="jhi_user_id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
 
-    <changeSet author="leonid (generated)" id="15100022547480-8">
+    <changeSet author="leonid (generated)" id="15101622547480-9">
         <createTable tableName="UserHasProject">
             <column autoIncrement="true" name="id" type="INT">
                 <constraints nullable="false"  primaryKey="true" uniqueConstraintName="id_UNIQUE" unique="true"/>
@@ -236,6 +235,14 @@
                 <constraints nullable="false" primaryKey="true"/>
             </column>
         </createTable>
+
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/statuses.csv"
+                  separator=";"
+                  tableName="Status">
+            <column name="id" type="NUMERIC"/>
+            <column name="status_name" type="STRING"/>
+        </loadData>
     </changeSet>
 
 
@@ -291,12 +298,16 @@
             <!--<column name="event_id"/>-->
         <!--</createIndex>-->
     <!--</changeSet>-->
+    <changeSet author="leonid (generated)" id="1510009254488-28">
+        <addForeignKeyConstraint baseColumnNames="status_id" baseTableName="Task" constraintName="fk_task_status_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="Status" />
+    </changeSet>
+
     <changeSet author="leonid (generated)" id="1510002254480-37">
         <createIndex indexName="index4" tableName="UserHasAuthority">
             <column name="user_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="leonid (generated)" id="1510002254480-38">
+    <changeSet author="leonid (generated)" id="1510002254180-38">
         <addForeignKeyConstraint baseColumnNames="Task_has_jhi_user_id" baseTableName="TaskComment" constraintName="fk_TaskComment_Task_has_jhi_user1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="TaskHasUser"/>
     </changeSet>
     <changeSet author="leonid (generated)" id="1510002254480-39">

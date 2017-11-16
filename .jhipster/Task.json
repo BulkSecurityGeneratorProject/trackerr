@@ -1,0 +1,48 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "comments",
+            "otherEntityName": "comment",
+            "otherEntityRelationshipName": "task"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "status",
+            "otherEntityName": "status",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "task"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "project",
+            "otherEntityName": "project",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "users",
+            "otherEntityName": "user",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "tasks"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "taskName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "taskDescr",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20171105224533",
+    "javadoc": "not an ignored comment",
+    "entityTableName": "task",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false
+}

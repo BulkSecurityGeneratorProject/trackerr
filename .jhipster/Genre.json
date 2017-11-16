@@ -1,0 +1,25 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "books",
+            "otherEntityName": "book",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "genres"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "gName",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20171112133622",
+    "javadoc": "not an ignored comment",
+    "entityTableName": "genre",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false
+}

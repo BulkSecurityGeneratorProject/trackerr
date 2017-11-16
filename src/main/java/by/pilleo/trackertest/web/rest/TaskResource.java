@@ -1,12 +1,11 @@
 package by.pilleo.trackertest.web.rest;
 
+import com.codahale.metrics.annotation.Timed;
 import by.pilleo.trackertest.domain.Task;
-import by.pilleo.trackertest.domain.User;
+
 import by.pilleo.trackertest.repository.TaskRepository;
-import by.pilleo.trackertest.repository.UserRepository;
 import by.pilleo.trackertest.web.rest.errors.BadRequestAlertException;
 import by.pilleo.trackertest.web.rest.util.HeaderUtil;
-import com.codahale.metrics.annotation.Timed;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -30,10 +30,9 @@ public class TaskResource {
     private static final String ENTITY_NAME = "task";
 
     private final TaskRepository taskRepository;
-    private  final UserRepository userRepository;
-    public TaskResource(TaskRepository taskRepository, UserRepository userRepository) {
+
+    public TaskResource(TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
-        this.userRepository=userRepository;
     }
 
     /**
@@ -50,18 +49,7 @@ public class TaskResource {
         if (task.getId() != null) {
             throw new BadRequestAlertException("A new task cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        for (User user:task.getUsers()             ) {
-            task.getUsers().remove(user);
-
-            user= userRepository.findOneWithEager(user.getId());
-            // task.addUser(user);
-            user.addTask(task);
-        }
         Task result = taskRepository.save(task);
-        for (User user:result.getUsers()    ) {
-            userRepository.save(user);
-
-        }
         return ResponseEntity.created(new URI("/api/tasks/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -83,18 +71,7 @@ public class TaskResource {
         if (task.getId() == null) {
             return createTask(task);
         }
-
-        for (User user:task.getUsers()             ) {
-            task.getUsers().remove(user);
-
-            user= userRepository.findOneWithEager(user.getId());
-            // task.addUser(user);
-            user.addTask(task);
-            userRepository.save(user);
-        }
-
         Task result = taskRepository.save(task);
-
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, task.getId().toString()))
             .body(result);
@@ -110,7 +87,7 @@ public class TaskResource {
     public List<Task> getAllTasks() {
         log.debug("REST request to get all Tasks");
         return taskRepository.findAll();
-    }
+        }
 
     /**
      * GET  /tasks/:id : get the "id" task.

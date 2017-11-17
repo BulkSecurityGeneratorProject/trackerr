@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity Userr.
+    -->
+    <changeSet id="20171115054403-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="userrs_id"
+                                 baseTableName="userr_projects"
+                                 constraintName="fk_userr_projects_userrs_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="userr"/>
+        <addForeignKeyConstraint baseColumnNames="projects_id"
+                                 baseTableName="userr_projects"
+                                 constraintName="fk_userr_projects_projects_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="project"/>
+        
+        <addForeignKeyConstraint baseColumnNames="userrs_id"
+                                 baseTableName="userr_tasks"
+                                 constraintName="fk_userr_tasks_userrs_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="userr"/>
+        <addForeignKeyConstraint baseColumnNames="tasks_id"
+                                 baseTableName="userr_tasks"
+                                 constraintName="fk_userr_tasks_tasks_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="task"/>
+        
+    </changeSet>
+</databaseChangeLog>

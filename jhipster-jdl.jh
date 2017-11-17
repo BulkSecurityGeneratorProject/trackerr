@@ -1,0 +1,58 @@
+entity Userr {
+	id Long,
+	login String,
+    firstName String,
+    lastName String,
+    email String,
+    imageUrl String,
+    activated Boolean,
+    langKey String,
+    createdBy String,
+    createdDate Instant,
+    lastModifiedBy String,
+    lastModifiedDate Instant
+}
+
+entity Project {
+	id Long,
+projectDescription String,
+projectName String
+
+}
+
+entity Comment{
+id Long,
+comment String,
+commDate Instant
+}
+// an ignored comment
+/** not an ignored comment */
+entity Task {
+id Long,
+	taskName String,
+    taskDescr String
+}
+entity Status{
+id Long,
+statusName String
+}
+
+relationship ManyToMany {
+	Userr{projects} to Project{users}
+
+}
+relationship ManyToMany {
+	Userr{tasks(id)} to Task{users}
+
+}
+
+relationship OneToMany {
+	Project{tasks(id)} to Task{project(id)},
+	Userr{comments} to Comment{user},
+    Task{comments} to Comment{task},
+    	Status{task} to Task{status(id)}
+
+}
+
+
+

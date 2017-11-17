@@ -1,0 +1,54 @@
+
+<div *ngIf="task">
+    <h2><span jhiTranslate="trackerrApp.task.detail.title">Task</span> {{task.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="trackerrApp.task.taskName">Task Name</span></dt>
+        <dd>
+            <span>{{task.taskName}}</span>
+        </dd>
+        <dt><span jhiTranslate="trackerrApp.task.taskDescr">Task Descr</span></dt>
+        <dd>
+            <span>{{task.taskDescr}}</span>
+        </dd>
+        <dt><span jhiTranslate="trackerrApp.task.status">Status</span></dt>
+        <dd>
+            <div *ngIf="task.status">
+                <a [routerLink]="['/status', task.status?.id]">{{task.status?.statusName}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="trackerrApp.task.project">Project</span></dt>
+        <dd>
+            <div *ngIf="task.project">
+                <a [routerLink]="['/project', task.project?.id]">{{task.project?.projectName}}</a>
+            </div>
+
+        </dd>        <dt><span jhiTranslate="trackerrApp.task.comments">Comments</span></dt>
+        <dd>
+            <ul>
+                <li *ngFor="let comment of task.comments; let last = last">
+                    <a [routerLink]="['/comment', comment?.id ]">{{comment.user.login}}: {{comment.comment}}</a>{{last ? '' : ', '}}
+                </li>
+            </ul>
+            <button type="button"
+                    (click)="createNewComment()"
+                    class="btn btn-primary float-right jh-create-entity create-task jhi-task-dialog">
+                <span class="fa fa-plus-circle"></span>&nbsp;<span > Add Comment</span>
+            </button>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'task/'+ task.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

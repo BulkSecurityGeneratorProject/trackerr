@@ -1,0 +1,77 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="leonid (generated)" id="1510359192329-1">
+        <createIndex indexName="IX_null" tableName="UserHasAuthority" unique="true">
+            <column name="user_id"/>
+            <column name="authority_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510359192329-2">
+        <dropUniqueConstraint constraintName="id_UNIQUE" tableName="Task"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510359192329-3">
+        <dropUniqueConstraint constraintName="id_UNIQUE" tableName="TaskComment"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510359192329-4">
+        <dropUniqueConstraint constraintName="id_UNIQUE" tableName="TaskHasUser"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510359192329-5">
+        <dropUniqueConstraint constraintName="id_UNIQUE" tableName="UserHasAuthority"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510359192329-6">
+        <dropUniqueConstraint constraintName="id_UNIQUE" tableName="UserHasProject"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510359192329-7">
+        <dropUniqueConstraint constraintName="index5" tableName="UserHasAuthority"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510359192329-8">
+        <dropColumn columnName="Task_Project_id" tableName="TaskHasUser"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510359192329-9">
+        <dropColumn columnName="Task_has_jhi_user_Task_Project_id" tableName="TaskComment"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510359192329-10">
+        <dropColumn columnName="Task_has_jhi_user_Task_id" tableName="TaskComment"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510359192329-11">
+        <dropColumn columnName="Task_has_jhi_user_jhi_user_id" tableName="TaskComment"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510359192329-12">
+        <dropColumn columnName="id" tableName="UserHasAuthority"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510359192329-13">
+        <dropColumn columnName="projectDescription" tableName="Project"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510359192329-14">
+        <dropColumn columnName="projectName" tableName="Project"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510359192329-15">
+        <dropColumn columnName="taskDescr" tableName="Task"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510359192329-16">
+        <dropColumn columnName="taskName" tableName="Task"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510359192329-17">
+        <dropNotNullConstraint columnDataType="varchar(50)" columnName="name" tableName="Authority"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510359192329-18">
+        <dropPrimaryKey tableName="UserHasAuthority"/>
+        <addPrimaryKey columnNames="user_id, authority_id" tableName="UserHasAuthority"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510359192329-19">
+        <dropPrimaryKey tableName="TaskComment"/>
+        <addPrimaryKey columnNames="id" constraintName="TaskCommentPK" tableName="TaskComment"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510359192329-20">
+        <dropPrimaryKey tableName="TaskHasUser"/>
+        <addPrimaryKey columnNames="id" constraintName="TaskHasUserPK" tableName="TaskHasUser"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510359192329-21">
+        <dropPrimaryKey tableName="Task"/>
+        <addPrimaryKey columnNames="id" constraintName="TaskPK" tableName="Task"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510359192329-22">
+        <dropPrimaryKey tableName="UserHasProject"/>
+        <addPrimaryKey columnNames="id" constraintName="UserHasProjectPK" tableName="UserHasProject"/>
+    </changeSet>
+</databaseChangeLog>

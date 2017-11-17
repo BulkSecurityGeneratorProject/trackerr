@@ -1,0 +1,299 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+   <changeSet author="leonid (generated)" id="1510002254480-1">
+            <createTable tableName="Authority">
+                <column name="name" type="VARCHAR(50)">
+                    <constraints nullable="false"/>
+                </column>
+            </createTable>
+        </changeSet>
+        <changeSet author="leonid (generated)" id="1510002254480-2">
+            <createTable tableName="Project">
+                <column autoIncrement="true" name="id" type="INT">
+                    <constraints primaryKey="true"/>
+                </column>
+                <column name="projectDescription" type="TEXT">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="projectName" type="VARCHAR(450)">
+                    <constraints nullable="false"/>
+                </column>
+            </createTable>
+        </changeSet>
+        <changeSet author="leonid (generated)" id="1510002254480-3">
+            <createTable tableName="Task">
+                <column autoIncrement="true" name="id" type="INT">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="Project_id" type="INT">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="taskName" type="VARCHAR(450)">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="taskDescr" type="TEXT">
+                    <constraints nullable="false"/>
+                </column>
+            </createTable>
+        </changeSet>
+        <changeSet author="leonid (generated)" id="1510002254480-4">
+            <createTable tableName="TaskComment">
+                <column autoIncrement="true" name="id" type="INT">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="Task_has_jhi_user_id" type="INT">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="Task_has_jhi_user_Task_id" type="INT">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="Task_has_jhi_user_Task_Project_id" type="INT">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="Task_has_jhi_user_jhi_user_id" type="BIGINT">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="comment" type="TEXT">
+                    <constraints nullable="false"/>
+                </column>
+                <column defaultValueComputed="CURRENT_TIMESTAMP" name="commentDate" type="TIMESTAMP(19)">
+                    <constraints nullable="false"/>
+                </column>
+            </createTable>
+        </changeSet>
+        <changeSet author="leonid (generated)" id="1510002254480-5">
+            <createTable tableName="TaskHasUser">
+                <column autoIncrement="true" name="id" type="INT">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="Task_id" type="INT">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="Task_Project_id" type="INT">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="jhi_user_id" type="BIGINT">
+                    <constraints nullable="false"/>
+                </column>
+            </createTable>
+        </changeSet>
+        <changeSet author="leonid (generated)" id="1510002254480-6">
+            <createTable tableName="User">
+                <column autoIncrement="true" name="id" type="BIGINT">
+                    <constraints primaryKey="true"/>
+                </column>
+                <column name="login" type="VARCHAR(50)">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="password_hash" type="VARCHAR(60)"/>
+                <column name="first_name" type="VARCHAR(50)"/>
+                <column name="last_name" type="VARCHAR(50)"/>
+                <column name="email" type="VARCHAR(100)"/>
+                <column name="image_url" type="VARCHAR(256)"/>
+                <column name="activated" type="BIT(1)">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="lang_key" type="VARCHAR(6)"/>
+                <column name="activation_key" type="VARCHAR(20)"/>
+                <column name="reset_key" type="VARCHAR(20)"/>
+                <column name="created_by" type="VARCHAR(50)">
+                    <constraints nullable="false"/>
+                </column>
+                <column defaultValueComputed="CURRENT_TIMESTAMP" name="created_date" type="TIMESTAMP(19)">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="reset_date" type="TIMESTAMP(19)"/>
+                <column name="last_modified_by" type="VARCHAR(50)"/>
+                <column name="last_modified_date" type="TIMESTAMP(19)"/>
+            </createTable>
+        </changeSet>
+        <changeSet id="765546437685" author="Leonid">
+            <loadData encoding="UTF-8"
+                      file="config/liquibase/users.csv"
+                      separator=";"
+                      tableName="User">
+                <column name="activated" type="boolean"/>
+                <column name="created_date" type="timestamp"/>
+            </loadData>
+        </changeSet>
+        <changeSet author="leonid (generated)" id="1510002254480-7">
+            <createTable tableName="UserHasAuthority">
+                <column autoIncrement="true" name="id" type="BIGINT">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="user_id" type="BIGINT">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="authority_name" type="VARCHAR(50)">
+                    <constraints nullable="false"/>
+                </column>
+            </createTable>
+        </changeSet>
+        <changeSet author="leonid (generated)" id="1510002254480-8">
+            <createTable tableName="UserHasProject">
+                <column autoIncrement="true" name="id" type="INT">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="jhi_user_id" type="BIGINT">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="Project_id" type="INT">
+                    <constraints nullable="false"/>
+                </column>
+            </createTable>
+        </changeSet>
+        <changeSet author="leonid (generated)" id="1510002254480-9">
+            <createTable tableName="jhi_persistent_audit_event">
+                <column autoIncrement="true" name="event_id" type="BIGINT">
+                    <constraints primaryKey="true"/>
+                </column>
+                <column name="principal" type="VARCHAR(50)">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="event_date" type="TIMESTAMP(19)"/>
+                <column name="event_type" type="VARCHAR(255)"/>
+            </createTable>
+        </changeSet>
+        <changeSet author="leonid (generated)" id="1510002254480-10">
+            <createTable tableName="jhi_persistent_audit_evt_data">
+                <column name="event_id" type="BIGINT">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="name" type="VARCHAR(150)">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="value" type="VARCHAR(255)"/>
+            </createTable>
+        </changeSet>
+        <changeSet author="leonid (generated)" id="1510002254480-11">
+            <addPrimaryKey columnNames="name" constraintName="PRIMARY" tableName="Authority"/>
+        </changeSet>
+        <changeSet author="leonid (generated)" id="1510002254480-12">
+            <addPrimaryKey columnNames="id, Project_id" constraintName="PRIMARY" tableName="Task"/>
+        </changeSet>
+        <changeSet author="leonid (generated)" id="1510002254480-13">
+            <addPrimaryKey columnNames="id, Task_has_jhi_user_id" constraintName="PRIMARY" tableName="TaskComment"/>
+        </changeSet>
+        <changeSet author="leonid (generated)" id="1510002254480-14">
+            <addPrimaryKey columnNames="id, Task_id, jhi_user_id" constraintName="PRIMARY" tableName="TaskHasUser"/>
+        </changeSet>
+        <changeSet author="leonid (generated)" id="1510002254480-15">
+            <addPrimaryKey columnNames="id, user_id, authority_name" constraintName="PRIMARY" tableName="UserHasAuthority"/>
+        </changeSet>
+        <changeSet author="leonid (generated)" id="1510002254480-16">
+            <addPrimaryKey columnNames="id, jhi_user_id, Project_id" constraintName="PRIMARY" tableName="UserHasProject"/>
+        </changeSet>
+        <changeSet author="leonid (generated)" id="1510002254480-17">
+            <addPrimaryKey columnNames="event_id, name" constraintName="PRIMARY" tableName="jhi_persistent_audit_evt_data"/>
+        </changeSet>
+        <changeSet author="leonid (generated)" id="1510002254480-18">
+            <addUniqueConstraint columnNames="id" constraintName="id_UNIQUE" tableName="Task"/>
+        </changeSet>
+        <changeSet author="leonid (generated)" id="1510002254480-19">
+            <addUniqueConstraint columnNames="id" constraintName="id_UNIQUE" tableName="TaskComment"/>
+        </changeSet>
+        <changeSet author="leonid (generated)" id="1510002254480-20">
+            <addUniqueConstraint columnNames="id" constraintName="id_UNIQUE" tableName="TaskHasUser"/>
+        </changeSet>
+        <changeSet author="leonid (generated)" id="1510002254480-21">
+            <addUniqueConstraint columnNames="id" constraintName="id_UNIQUE" tableName="UserHasAuthority"/>
+        </changeSet>
+        <changeSet author="leonid (generated)" id="1510002254480-22">
+            <addUniqueConstraint columnNames="id" constraintName="id_UNIQUE" tableName="UserHasProject"/>
+        </changeSet>
+        <changeSet author="leonid (generated)" id="1510002254480-23">
+            <addUniqueConstraint columnNames="email" constraintName="idx_user_email" tableName="User"/>
+        </changeSet>
+        <changeSet author="leonid (generated)" id="1510002254480-24">
+            <addUniqueConstraint columnNames="login" constraintName="idx_user_login" tableName="User"/>
+        </changeSet>
+        <changeSet author="leonid (generated)" id="1510002254480-25">
+            <addUniqueConstraint columnNames="authority_name, user_id" constraintName="index5" tableName="UserHasAuthority"/>
+        </changeSet>
+        <changeSet author="leonid (generated)" id="1510002254480-26">
+            <addUniqueConstraint columnNames="email" constraintName="ux_user_email" tableName="User"/>
+        </changeSet>
+        <changeSet author="leonid (generated)" id="1510002254480-27">
+            <addUniqueConstraint columnNames="login" constraintName="ux_user_login" tableName="User"/>
+        </changeSet>
+        <changeSet author="leonid (generated)" id="1510002254480-28">
+            <createIndex indexName="fk_TaskComment_Task_has_jhi_user1_idx" tableName="TaskComment">
+                <column name="Task_has_jhi_user_id"/>
+            </createIndex>
+        </changeSet>
+        <changeSet author="leonid (generated)" id="1510002254480-29">
+            <createIndex indexName="fk_Task_Project1_idx" tableName="Task">
+                <column name="Project_id"/>
+            </createIndex>
+        </changeSet>
+        <changeSet author="leonid (generated)" id="1510002254480-30">
+            <createIndex indexName="fk_Task_has_jhi_user_Task1_idx" tableName="TaskHasUser">
+                <column name="Task_id"/>
+            </createIndex>
+        </changeSet>
+        <changeSet author="leonid (generated)" id="1510002254480-31">
+            <createIndex indexName="fk_Task_has_jhi_user_jhi_user1_idx" tableName="TaskHasUser">
+                <column name="jhi_user_id"/>
+            </createIndex>
+        </changeSet>
+        <changeSet author="leonid (generated)" id="1510002254480-32">
+            <createIndex indexName="fk_authority_name" tableName="UserHasAuthority">
+                <column name="authority_name"/>
+            </createIndex>
+        </changeSet>
+        <changeSet author="leonid (generated)" id="1510002254480-33">
+            <createIndex indexName="fk_jhi_user_has_Project_Project1_idx" tableName="UserHasProject">
+                <column name="Project_id"/>
+            </createIndex>
+        </changeSet>
+        <changeSet author="leonid (generated)" id="1510002254480-34">
+            <createIndex indexName="fk_jhi_user_has_Project_jhi_user1_idx" tableName="UserHasProject">
+                <column name="jhi_user_id"/>
+            </createIndex>
+        </changeSet>
+        <changeSet author="leonid (generated)" id="1510002254480-35">
+            <createIndex indexName="idx_persistent_audit_event" tableName="jhi_persistent_audit_event">
+                <column name="principal"/>
+                <column name="event_date"/>
+            </createIndex>
+        </changeSet>
+        <changeSet author="leonid (generated)" id="1510002254480-36">
+            <createIndex indexName="idx_persistent_audit_evt_data" tableName="jhi_persistent_audit_evt_data">
+                <column name="event_id"/>
+            </createIndex>
+        </changeSet>
+        <changeSet author="leonid (generated)" id="1510002254480-37">
+            <createIndex indexName="index4" tableName="UserHasAuthority">
+                <column name="user_id"/>
+            </createIndex>
+        </changeSet>
+        <changeSet author="leonid (generated)" id="1510002254480-38">
+            <addForeignKeyConstraint baseColumnNames="Task_has_jhi_user_id" baseTableName="TaskComment" constraintName="fk_TaskComment_Task_has_jhi_user1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="TaskHasUser"/>
+        </changeSet>
+        <changeSet author="leonid (generated)" id="1510002254480-39">
+            <addForeignKeyConstraint baseColumnNames="Project_id" baseTableName="Task" constraintName="fk_Task_Project1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="Project"/>
+        </changeSet>
+        <changeSet author="leonid (generated)" id="1510002254480-40">
+            <addForeignKeyConstraint baseColumnNames="Task_id" baseTableName="TaskHasUser" constraintName="fk_Task_has_jhi_user_Task1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="Task"/>
+        </changeSet>
+        <changeSet author="leonid (generated)" id="1510002254480-41">
+            <addForeignKeyConstraint baseColumnNames="jhi_user_id" baseTableName="TaskHasUser" constraintName="fk_Task_has_jhi_user_jhi_user1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="User"/>
+        </changeSet>
+        <changeSet author="leonid (generated)" id="1510002254480-42">
+            <addForeignKeyConstraint baseColumnNames="authority_name" baseTableName="UserHasAuthority" constraintName="fk_authority_name" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="name" referencedTableName="Authority"/>
+        </changeSet>
+        <changeSet author="leonid (generated)" id="1510002254480-43">
+            <addForeignKeyConstraint baseColumnNames="event_id" baseTableName="jhi_persistent_audit_evt_data" constraintName="fk_evt_pers_audit_evt_data" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="event_id" referencedTableName="jhi_persistent_audit_event"/>
+        </changeSet>
+        <changeSet author="leonid (generated)" id="1510002254480-44">
+            <addForeignKeyConstraint baseColumnNames="Project_id" baseTableName="UserHasProject" constraintName="fk_jhi_user_has_Project_Project1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="Project"/>
+        </changeSet>
+        <changeSet author="leonid (generated)" id="1510002254480-45">
+            <addForeignKeyConstraint baseColumnNames="jhi_user_id" baseTableName="UserHasProject" constraintName="fk_jhi_user_has_Project_jhi_user1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="User"/>
+        </changeSet>
+        <changeSet author="leonid (generated)" id="1510002254480-46">
+            <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="UserHasAuthority" constraintName="fk_user_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="User"/>
+        </changeSet>
+
+
+</databaseChangeLog>

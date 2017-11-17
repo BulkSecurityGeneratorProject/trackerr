@@ -1,0 +1,82 @@
+<div>
+    <h2>
+        <span jhiTranslate="trackerrApp.user.home.title">Users</span>
+        <button class="btn btn-primary float-right jh-create-entity create-user" [routerLink]="['/', { outlets: { popup: ['user-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="trackerrApp.user.home.createLabel">
+            Create new User
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="users">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="trackerrApp.user.login">Login</span></th>
+            <th><span jhiTranslate="trackerrApp.user.firstName">First Name</span></th>
+            <th><span jhiTranslate="trackerrApp.user.lastName">Last Name</span></th>
+            <th><span jhiTranslate="trackerrApp.user.email">Email</span></th>
+            <th><span jhiTranslate="trackerrApp.user.imageUrl">Image Url</span></th>
+            <th><span jhiTranslate="trackerrApp.user.activated">Activated</span></th>
+            <th><span jhiTranslate="trackerrApp.user.langKey">Lang Key</span></th>
+            <th><span jhiTranslate="trackerrApp.user.createdBy">Created By</span></th>
+            <th><span jhiTranslate="trackerrApp.user.createdDate">Created Date</span></th>
+            <th><span jhiTranslate="trackerrApp.user.lastModifiedBy">Last Modified By</span></th>
+            <th><span jhiTranslate="trackerrApp.user.lastModifiedDate">Last Modified Date</span></th>
+            <th><span jhiTranslate="trackerrApp.user.projects">Projects</span></th>
+            <th><span jhiTranslate="trackerrApp.user.tasks">Tasks</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let user of users ;trackBy: trackId">
+                <td><a [routerLink]="['../user', user.id ]">{{user.id}}</a></td>
+                <td>{{user.login}}</td>
+                <td>{{user.firstName}}</td>
+                <td>{{user.lastName}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.imageUrl}}</td>
+                <td>{{user.activated}}</td>
+                <td>{{user.langKey}}</td>
+                <td>{{user.createdBy}}</td>
+                <td>{{user.createdDate | date:'medium'}}</td>
+                <td>{{user.lastModifiedBy}}</td>
+                <td>{{user.lastModifiedDate | date:'medium'}}</td>
+                <td>
+                    <span *ngFor="let projects of user.projects; let last = last">
+                            <a class="form-control-static" [routerLink]="['../project', projects?.id ]">{{projects.id}}</a>{{last ? '' : ', '}}
+                        </span>
+                </td>
+                <td>
+                    <span *ngFor="let tasks of user.tasks; let last = last">
+                            <a class="form-control-static" [routerLink]="['../task', tasks?.id ]">{{tasks.id}}</a>{{last ? '' : ', '}}
+                        </span>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../user', user.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <!--<button type="submit"-->
+                                <!--[routerLink]="['/', { outlets: { popup: 'user/'+ user.id + '/edit'} }]"-->
+                                <!--replaceUrl="true"-->
+                                <!--class="btn btn-primary btn-sm">-->
+                            <!--<span class="fa fa-pencil"></span>-->
+                            <!--<span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>-->
+                        <!--</button>-->
+
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

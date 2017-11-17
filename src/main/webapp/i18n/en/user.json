@@ -1,0 +1,33 @@
+{
+    "trackerrApp": {
+        "user" : {
+            "home": {
+                "title": "Users",
+                "createLabel": "Create a new User",
+                "createOrEditLabel": "Create or edit a User"
+            },
+            "created": "A new User is created with identifier {{ param }}",
+            "updated": "A User is updated with identifier {{ param }}",
+            "deleted": "A User is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete User {{ id }}?"
+            },
+            "detail": {
+                "title": "User"
+            },
+            "login": "Login",
+            "firstName": "First Name",
+            "lastName": "Last Name",
+            "email": "Email",
+            "imageUrl": "Image Url",
+            "activated": "Activated",
+            "langKey": "Lang Key",
+            "createdBy": "Created By",
+            "createdDate": "Created Date",
+            "lastModifiedBy": "Last Modified By",
+            "lastModifiedDate": "Last Modified Date",
+            "projects": "Projects",
+            "tasks": "Tasks"
+        }
+    }
+}

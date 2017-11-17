@@ -1,0 +1,84 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myUserLabel" jhiTranslate="trackerrApp.user.home.createOrEditLabel">Create or edit a User</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!user.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="user.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="trackerrApp.user.login" for="field_login">Login</label>
+            <input type="text" class="form-control" name="login" id="field_login"
+                [(ngModel)]="user.login"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="trackerrApp.user.firstName" for="field_firstName">First Name</label>
+            <input type="text" class="form-control" name="firstName" id="field_firstName"
+                [(ngModel)]="user.firstName"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="trackerrApp.user.lastName" for="field_lastName">Last Name</label>
+            <input type="text" class="form-control" name="lastName" id="field_lastName"
+                [(ngModel)]="user.lastName"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="trackerrApp.user.email" for="field_email">Email</label>
+            <input type="text" class="form-control" name="email" id="field_email"
+                [(ngModel)]="user.email"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="trackerrApp.user.imageUrl" for="field_imageUrl">Image Url</label>
+            <input type="text" class="form-control" name="imageUrl" id="field_imageUrl"
+                [(ngModel)]="user.imageUrl"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="trackerrApp.user.activated" for="field_activated">Activated</label>
+            <input type="checkbox" class="form-control" name="activated" id="field_activated"
+                [(ngModel)]="user.activated"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="trackerrApp.user.langKey" for="field_langKey">Lang Key</label>
+            <input type="text" class="form-control" name="langKey" id="field_langKey"
+                [(ngModel)]="user.langKey"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="trackerrApp.user.createdBy" for="field_createdBy">Created By</label>
+            <input type="text" class="form-control" name="createdBy" id="field_createdBy"
+                [(ngModel)]="user.createdBy"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="trackerrApp.user.createdDate" for="field_createdDate">Created Date</label>
+            <div class="d-flex">
+                <input id="field_createdDate" type="datetime-local" class="form-control" name="createdDate" [(ngModel)]="user.createdDate"
+                  />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="trackerrApp.user.lastModifiedBy" for="field_lastModifiedBy">Last Modified By</label>
+            <input type="text" class="form-control" name="lastModifiedBy" id="field_lastModifiedBy"
+                [(ngModel)]="user.lastModifiedBy"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="trackerrApp.user.lastModifiedDate" for="field_lastModifiedDate">Last Modified Date</label>
+            <div class="d-flex">
+                <input id="field_lastModifiedDate" type="datetime-local" class="form-control" name="lastModifiedDate" [(ngModel)]="user.lastModifiedDate"
+                  />
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

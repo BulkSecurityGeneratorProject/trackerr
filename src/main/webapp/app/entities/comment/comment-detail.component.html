@@ -1,0 +1,41 @@
+
+<div *ngIf="comment">
+    <h2><span jhiTranslate="trackerrApp.comment.detail.title">Comment</span> {{comment.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="trackerrApp.comment.comment">Comment</span></dt>
+        <dd>
+            <span>{{comment.comment}}</span>
+        </dd>
+        <dt><span jhiTranslate="trackerrApp.comment.commDate">Comm Date</span></dt>
+        <dd>
+            <span>{{comment.commDate | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="trackerrApp.comment.user">User</span></dt>
+        <dd>
+            <div *ngIf="comment.user">
+                <a [routerLink]="['/user', comment.user?.id]">{{comment.user?.login}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="trackerrApp.comment.task">Task</span></dt>
+        <dd>
+            <div *ngIf="comment.task">
+                <a [routerLink]="['/task', comment.task?.id]">{{comment.task?.taskName}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'comment/'+ comment.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

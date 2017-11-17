@@ -1,0 +1,110 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="leonid (generated)" id="1510494181827-1">
+        <createTable tableName="book_genres">
+            <column name="books_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="genres_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510494181827-2">
+        <createTable tableName="genre">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="genrePK"/>
+            </column>
+            <column name="g_name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510494181827-3">
+        <addPrimaryKey columnNames="books_id, genres_id" tableName="book_genres"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510494181827-4">
+        <createIndex indexName="IX_AuthorityPK" tableName="Authority" unique="true">
+            <column name="id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510494181827-5">
+        <createIndex indexName="IX_null" tableName="UserHasAuthority" unique="true">
+            <column name="user_id"/>
+            <column name="authority_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510494181827-6">
+        <addForeignKeyConstraint baseColumnNames="genres_id" baseTableName="book_genres" constraintName="FKkemwddl6cxkebe21lsqa2ob4q" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="genre"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510494181827-7">
+        <addForeignKeyConstraint baseColumnNames="books_id" baseTableName="book_genres" constraintName="FKlbdkit5k0gr9g1w5l791qcamg" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="book"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510494181827-8">
+        <dropUniqueConstraint constraintName="id_UNIQUE" tableName="Task"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510494181827-9">
+        <dropUniqueConstraint constraintName="id_UNIQUE" tableName="TaskComment"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510494181827-10">
+        <dropUniqueConstraint constraintName="id_UNIQUE" tableName="TaskHasUser"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510494181827-11">
+        <dropUniqueConstraint constraintName="id_UNIQUE" tableName="UserHasAuthority"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510494181827-12">
+        <dropUniqueConstraint constraintName="id_UNIQUE" tableName="UserHasProject"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510494181827-13">
+        <dropUniqueConstraint constraintName="index5" tableName="UserHasAuthority"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510494181827-14">
+        <dropUniqueConstraint constraintName="name_UNIQUE" tableName="Authority"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510494181827-15">
+        <dropColumn columnName="Task_Project_id" tableName="TaskHasUser"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510494181827-16">
+        <dropColumn columnName="Task_has_jhi_user_Task_Project_id" tableName="TaskComment"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510494181827-17">
+        <dropColumn columnName="Task_has_jhi_user_Task_id" tableName="TaskComment"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510494181827-18">
+        <dropColumn columnName="Task_has_jhi_user_jhi_user_id" tableName="TaskComment"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510494181827-19">
+        <dropColumn columnName="id" tableName="UserHasAuthority"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510494181827-20">
+        <dropColumn columnName="taskDescr" tableName="Task"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510494181827-21">
+        <dropColumn columnName="taskName" tableName="Task"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510494181827-22">
+        <dropNotNullConstraint columnDataType="varchar(50)" columnName="name" tableName="Authority"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510494181827-23">
+        <dropPrimaryKey tableName="UserHasAuthority"/>
+        <addPrimaryKey columnNames="user_id, authority_id" tableName="UserHasAuthority"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510494181827-24">
+        <dropPrimaryKey tableName="Authority"/>
+        <addPrimaryKey columnNames="id" constraintName="AuthorityPK" tableName="Authority"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510494181827-25">
+        <dropPrimaryKey tableName="TaskComment"/>
+        <addPrimaryKey columnNames="id" constraintName="TaskCommentPK" tableName="TaskComment"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510494181827-26">
+        <dropPrimaryKey tableName="TaskHasUser"/>
+        <addPrimaryKey columnNames="id" constraintName="TaskHasUserPK" tableName="TaskHasUser"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510494181827-27">
+        <dropPrimaryKey tableName="Task"/>
+        <addPrimaryKey columnNames="id" constraintName="TaskPK" tableName="Task"/>
+    </changeSet>
+    <changeSet author="leonid (generated)" id="1510494181827-28">
+        <dropPrimaryKey tableName="UserHasProject"/>
+        <addPrimaryKey columnNames="id" constraintName="UserHasProjectPK" tableName="UserHasProject"/>
+    </changeSet>
+</databaseChangeLog>

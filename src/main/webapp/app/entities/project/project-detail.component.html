@@ -1,0 +1,48 @@
+
+<div *ngIf="project">
+    <h2><span jhiTranslate="trackerrApp.project.detail.title">Project</span> {{project.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="trackerrApp.project.projectDescription">Project Description</span></dt>
+        <dd>
+            <span>{{project.projectDescription}}</span>
+        </dd>
+        <dt><span jhiTranslate="trackerrApp.project.projectName">Project Name</span></dt>
+        <dd>
+            <span>{{project.projectName}}</span>
+        </dd>
+        <dt><span>Users</span></dt>
+        <span *ngFor="let user of project.users; let last = last">
+                <a [routerLink]="['/user', user?.id ]">{{user.login}}</a>{{last ? '' : ', '}}
+            </span>
+        </dd>
+
+
+        <dt><span>Project tasks</span></dt>
+        <ul>
+        <li *ngFor="let task of project.tasks; let last = last">
+                <a [routerLink]="['/task', task?.id ]">{{task.taskName}}</a>{{last ? '' : ', '}}
+            </li>
+        </ul>
+        <button type="button"
+                (click)="createNewTask()"
+                class="btn btn-primary float-right jh-create-entity create-task jhi-task-dialog">
+            <span class="fa fa-plus-circle"></span>&nbsp;<span > Add Task</span>
+        </button>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'project/'+ project.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

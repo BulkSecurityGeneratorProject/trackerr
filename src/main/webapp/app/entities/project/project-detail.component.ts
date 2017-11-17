@@ -11,42 +11,56 @@ import {UserRouteAccessService} from '../../shared/auth/user-route-access-servic
 import {Principal} from '../../shared/auth/principal.service';
 import {UserService} from '../user/user.service';
 import {User} from '../user/user.model';
-import {Observable} from 'rxjs/Observable';
+import {ResponseWrapper} from '../../shared/model/response-wrapper.model';
 
 @Component({
     selector: 'jhi-project-detail',
     templateUrl: './project-detail.component.html'
 })
 export class ProjectDetailComponent implements OnInit, OnDestroy {
+    userService: UserService;
 
     project: Project;
     private subscription: Subscription;
     private eventSubscriber: Subscription;
-    private currentUser: User;
-    private onlyMyTasks: boolean;
-    private filteredTasks: Task[];
+    currentUser: User;
+    onlyMyTasks: boolean;
+    filteredTasks: Task[];
 
     constructor(
         private eventManager: JhiEventManager,
         private projectService: ProjectService,
         private route: ActivatedRoute,
         private taskService: TaskService,
-        private userService: UserService,
+        userService: UserService
 
     ) {
+        this.currentUser = userService.findCurrentUser() ;
+
     }
 
+    filterTasks(): Task[] {
+        if ( this.onlyMyTasks) {
+            this.filteredTasks = this.project.tasks
+        } else {
+            this.taskService.findForCurrUserAndProject(this.project.id).subscribe(
+                (res: ResponseWrapper) => {
+                    this.filteredTasks = res.json;
+                }
+            );
+        }
 
+        return this.filteredTasks;
+    }
 
     createNewTask(): Task {
-        this.registerChangeInProjects();
         this.filteredTasks = this.project.tasks;
         let task  = new Task();
         task.project = this.project;
         let userArray: User[];
 
         console.log(this.currentUser);
-        userArray = [this.currentUser];
+        userArray = [this.userService.findCurrentUser()];
 
         task.users =  userArray ;
 
@@ -54,11 +68,11 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
         task.taskDescr = this.project.projectName + ' ' + this.currentUser.login +  ' task ' + new Date() ;
         this.taskService.create(task).subscribe((taskk) => task = taskk );
         this.project.tasks.unshift(task);
+        this.filteredTasks.unshift(task);
         this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
         });
-        this.registerChangeInProjects();
-
+        this.ngOnInit();
         return task;
     }
 
@@ -67,13 +81,11 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
         this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
         });
-        this.registerChangeInProjects();
+        this.currentUser = this.userService.findCurrentUser();
+        console.log(this.currentUser);
+        this.filteredTasks = this.project.tasks;
 
-        const observUser: Observable<User> = this.userService.findCurrentUser();
-        observUser.subscribe((val) => {
-            console.log(val);
-            this.currentUser = val ;
-        } );
+        this.registerChangeInProjects();
 
     }
 
@@ -81,6 +93,10 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
         this.projectService.find(id).subscribe((project) => {
             this.project = project;
         });
+
+        this.currentUser = this.userService.findCurrentUser();
+        this.filteredTasks = this.project.tasks;
+
     }
     previousState() {
         window.history.back();

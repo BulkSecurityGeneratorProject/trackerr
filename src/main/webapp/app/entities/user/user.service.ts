@@ -38,12 +38,13 @@ export class UserService {
         });
     }
 
-    findCurrentUser(): Observable<User> {
-
-        return this.http.get(`${this.resourceUrl}/currUser`).map((res: Response) => {
+    findCurrentUser(): User {
+        let user: User;
+         this.http.get(`${this.resourceUrl}/currUser`).map((res: Response) => {
             const jsonResponse = res.json();
             return this.convertItemFromServer(jsonResponse);
-        });
+        }).subscribe(((us) => {user = us ; } ), ( (err) => { console.log(err); } ), (() => console.log('completed')) );
+         return user;
 
     }
 

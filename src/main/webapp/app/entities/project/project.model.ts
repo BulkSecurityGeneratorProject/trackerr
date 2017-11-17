@@ -1,5 +1,6 @@
-import { BaseEntity, User } from './../../shared';
+import { BaseEntity } from './../../shared';
 import {Task} from '../task/task.model';
+import {User} from '../user/user.model';
 
 export class Project implements BaseEntity {
     constructor(

@@ -12,7 +12,7 @@ import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
     templateUrl: './task.component.html'
 })
 export class TaskComponent implements OnInit, OnDestroy {
-tasks: Task[];
+    tasks: Task[];
     currentAccount: any;
     eventSubscriber: Subscription;
 

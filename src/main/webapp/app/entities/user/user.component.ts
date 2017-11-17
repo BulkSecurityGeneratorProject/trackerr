@@ -12,10 +12,10 @@ import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
     templateUrl: './user.component.html'
 })
 export class UserComponent implements OnInit, OnDestroy {
-users: User[];
+    users: User[];
     currentAccount: any;
     eventSubscriber: Subscription;
-
+    currentUser: User;
     constructor(
         private userService: UserService,
         private jhiAlertService: JhiAlertService,
@@ -31,6 +31,7 @@ users: User[];
             },
             (res: ResponseWrapper) => this.onError(res.json)
         );
+
     }
     ngOnInit() {
         this.loadAll();
@@ -38,11 +39,9 @@ users: User[];
             this.currentAccount = account;
         });
 
-
         this.registerChangeInUsers();
 
-        this.users = [];
-        this.users.push(this.currentAccount);
+        this.currentUser = this.userService.findCurrentUser();
     }
 
     ngOnDestroy() {

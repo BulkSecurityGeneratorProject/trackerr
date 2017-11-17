@@ -50,21 +50,27 @@
         </dd>
         <dt><span jhiTranslate="trackerrApp.user.projects">Projects</span></dt>
         <dd>
-            <span *ngFor="let projects of user.projects; let last = last">
+            <ul>
+            <li *ngFor="let projects of user.projects; let last = last">
                 <a [routerLink]="['/project', projects?.id ]">{{projects.projectName}}</a>{{last ? '' : ', '}}
-            </span>
+            </li>
+            </ul>
         </dd>
         <dt><span jhiTranslate="trackerrApp.user.tasks">Tasks</span></dt>
         <dd>
-            <span *ngFor="let tasks of user.tasks; let last = last">
+            <ul>
+            <li *ngFor="let tasks of user.tasks; let last = last">
                 <a [routerLink]="['/task', tasks?.id ]">{{tasks.taskName}}</a>{{last ? '' : ', '}}
-            </span>
+            </li>
+            </ul>
         </dd>
         <dt><span >Comments</span></dt>
         <dd>
-            <span *ngFor="let comment of user.comments; let last = last">
+            <ul>
+            <li *ngFor="let comment of user.comments; let last = last">
                 <a [routerLink]="['/comment', comment?.id ]">{{comment.comment}}</a>{{last ? '' : ', '}}
-            </span>
+            </li>
+            </ul>
         </dd>
     </dl>
 

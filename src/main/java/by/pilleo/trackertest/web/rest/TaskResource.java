@@ -2,6 +2,7 @@ package by.pilleo.trackertest.web.rest;
 
 import by.pilleo.trackertest.domain.User;
 import by.pilleo.trackertest.repository.UserRepository;
+import by.pilleo.trackertest.security.SecurityUtils;
 import com.codahale.metrics.annotation.Timed;
 import by.pilleo.trackertest.domain.Task;
 
@@ -130,6 +131,18 @@ public class TaskResource {
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(task));
     }
 
+
+    @GetMapping("/tasks/project/{id}")
+    @Timed
+    public List<Task> getTasksForProjectAndCurrUser(@PathVariable Long id) {
+        log.debug("REST request to get Task : {}", id);
+        User currentUser = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get() ;
+
+        List<Task> result = taskRepository.findWithEagerForProjectAndCurrUser(id, currentUser.getId());
+        result.forEach(task -> task.getComments().forEach(e->e.setTask(new Task())));
+        ;
+        return result;
+    }
     /**
      * DELETE  /tasks/:id : delete the "id" task.
      *

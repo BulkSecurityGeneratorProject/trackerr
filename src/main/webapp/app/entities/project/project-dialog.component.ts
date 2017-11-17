@@ -36,14 +36,11 @@ export class ProjectDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.userService.query()
-            .subscribe((res: ResponseWrapper) => { this.users = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+        // this.userService.query()
+        //     .subscribe((res: ResponseWrapper) => { this.users = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+        this.users = this.project.users;
+        this.currentUser = this.userService.findCurrentUser();
 
-        const observUser: Observable<User> = this.userService.findCurrentUser();
-        observUser.subscribe((val) => {
-            console.log(val);
-            this.currentUser = val ;
-        } );
     }
 
     clear() {
@@ -125,4 +122,3 @@ export class ProjectPopupComponent implements OnInit, OnDestroy {
         this.routeSub.unsubscribe();
     }
 }
-

@@ -33,7 +33,6 @@ export class TaskDetailComponent implements OnInit, OnDestroy {
     }
 
     createNewComment(): Comment {
-        this.registerChangeInTasks();
 
         let comment  = new Comment();
         comment.task = this.task;
@@ -45,11 +44,7 @@ export class TaskDetailComponent implements OnInit, OnDestroy {
         comment.comment = this.task.taskName + ' ' + this.currentUser.login +  ' comment ' + new Date()  ;
         this.commentService.create(comment).subscribe((taskk) => comment = taskk );
         this.task.comments.unshift(comment);
-        this.subscription = this.route.params.subscribe((params) => {
-            this.load(params['id']);
-        });
-        this.registerChangeInTasks();
-
+        this.ngOnInit();
         return comment;
     }
 
@@ -65,11 +60,8 @@ export class TaskDetailComponent implements OnInit, OnDestroy {
             this.task = task;
         });
 
-        const observUser: Observable<User> = this.userService.findCurrentUser();
-        observUser.subscribe((val) => {
-            console.log(val);
-            this.currentUser = val ;
-        } );
+        this.currentUser = this.userService.findCurrentUser();
+
     }
     previousState() {
         window.history.back();

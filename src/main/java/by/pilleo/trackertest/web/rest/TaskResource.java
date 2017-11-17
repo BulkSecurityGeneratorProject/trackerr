@@ -1,5 +1,7 @@
 package by.pilleo.trackertest.web.rest;
 
+import by.pilleo.trackertest.domain.User;
+import by.pilleo.trackertest.repository.UserRepository;
 import com.codahale.metrics.annotation.Timed;
 import by.pilleo.trackertest.domain.Task;
 
@@ -30,9 +32,11 @@ public class TaskResource {
     private static final String ENTITY_NAME = "task";
 
     private final TaskRepository taskRepository;
+    private final UserRepository userRepository;
 
-    public TaskResource(TaskRepository taskRepository) {
+    public TaskResource(TaskRepository taskRepository, UserRepository userRepository) {
         this.taskRepository = taskRepository;
+        this.userRepository=userRepository;
     }
 
     /**
@@ -49,7 +53,18 @@ public class TaskResource {
         if (task.getId() != null) {
             throw new BadRequestAlertException("A new task cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        for (User user:task.getUsers()             ) {
+            task.getUsers().remove(user);
+
+            user= userRepository.findOneWithEager(user.getId());
+            // task.addUser(user);
+            user.addTask(task);
+        }
         Task result = taskRepository.save(task);
+        for (User user:result.getUsers()    ) {
+            userRepository.save(user);
+
+        }
         return ResponseEntity.created(new URI("/api/tasks/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -71,6 +86,17 @@ public class TaskResource {
         if (task.getId() == null) {
             return createTask(task);
         }
+
+
+        for (User user:task.getUsers()             ) {
+            task.getUsers().remove(user);
+
+            user= userRepository.findOneWithEager(user.getId());
+            // task.addUser(user);
+            user.addTask(task);
+            userRepository.save(user);
+        }
+
         Task result = taskRepository.save(task);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, task.getId().toString()))
@@ -99,7 +125,8 @@ public class TaskResource {
     @Timed
     public ResponseEntity<Task> getTask(@PathVariable Long id) {
         log.debug("REST request to get Task : {}", id);
-        Task task = taskRepository.findOne(id);
+        Task task = taskRepository.findOneEager(id);
+        task.getComments().forEach(e->e.setTask(new Task()));
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(task));
     }
 

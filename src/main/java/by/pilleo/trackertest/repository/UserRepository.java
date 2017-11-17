@@ -25,17 +25,18 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findOneByResetKey(String resetKey);
 
     Optional<User> findOneByEmailIgnoreCase(String email);
-    @Query("select user from User user left join fetch user.authorities auth left join fetch user.comments comments left join fetch user.projects projects left join fetch user.tasks tasks where user.login=:login")
 
+    @Query("select user from User user left join fetch user.authorities auth left join fetch user.comments comments left join fetch user.projects projects left join fetch user.tasks tasks where user.login=:login")
     Optional<User> findOneByLogin(@Param("login") String login);
 
-    @EntityGraph(attributePaths = "authorities")
+    @EntityGraph(attributePaths = {"authorities","projects", "comments", "tasks"})
     User findOneWithAuthoritiesById(Long id);
 
     @EntityGraph(attributePaths = "authorities")
     Optional<User> findOneWithAuthoritiesByLogin(String login);
 
     Page<User> findAllByLoginNot(Pageable pageable, String login);
+
     @Query("select user from User user left join fetch user.authorities auth left join fetch user.comments comments left join fetch user.projects projects left join fetch user.tasks tasks where user.id=:id")
     User findOneWithEager(@Param("id") Long id);
 }

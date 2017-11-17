@@ -128,14 +128,6 @@ public class ProjectResource {
         }
 
 
-//        ObjectMapper mapper = new ObjectMapper();
-//        String jsonInString = null;
-//        try {
-//            jsonInString = mapper.writeValueAsString(projects);
-//        } catch (JsonProcessingException e) {
-//            e.printStackTrace();
-//        }
-//        System.out.println(jsonInString);
 
         return projects;
     }

@@ -1,6 +1,7 @@
 package by.pilleo.trackertest.web.rest;
 
 import by.pilleo.trackertest.config.Constants;
+import by.pilleo.trackertest.web.rest.errors.InternalServerErrorException;
 import com.codahale.metrics.annotation.Timed;
 import by.pilleo.trackertest.domain.User;
 import by.pilleo.trackertest.repository.UserRepository;
@@ -150,6 +151,16 @@ public class UserResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
+
+    @GetMapping("/users/currUser")
+    @Timed
+    public ResponseEntity<UserDTO>  getCurrUser() {
+        UserDTO userDTO =Optional.ofNullable(userService.getCurrentUser())
+            .map(UserDTO::new)
+            .orElseThrow(() -> new InternalServerErrorException("User could not be found"));
+
+        return ResponseUtil.wrapOrNotFound(Optional.of(new  UserDTO(userService.getCurrentUser())));
+    }
     /**
      * @return a string list of the all of the roles
      */
@@ -163,16 +174,14 @@ public class UserResource {
     /**
      * GET  /users/:login : get the "login" user.
      *
-     * @param login the login of the user to find
+     * @param id the id of the user to find
      * @return the ResponseEntity with status 200 (OK) and with body the "login" user, or with status 404 (Not Found)
      */
-    @GetMapping("/users/{login:" + Constants.LOGIN_REGEX + "}")
+    @GetMapping("/users/{id}")
     @Timed
-    public ResponseEntity<UserDTO> getUser(@PathVariable String login) {
-        log.debug("REST request to get User : {}", login);
-        return ResponseUtil.wrapOrNotFound(
-            userService.getUserWithAuthoritiesByLogin(login)
-                .map(UserDTO::new));
+    public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {
+        log.debug("REST request to get User : {}", id);
+        return ResponseUtil.wrapOrNotFound(Optional.of(new  UserDTO(userService.getUserWithAuthorities(id))));
     }
 
     /**

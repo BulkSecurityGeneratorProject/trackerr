@@ -1,8 +1,11 @@
 package by.pilleo.trackertest.web.rest.vm;
 
+import by.pilleo.trackertest.domain.Comment;
+import by.pilleo.trackertest.domain.Project;
+import by.pilleo.trackertest.domain.Task;
 import by.pilleo.trackertest.service.dto.UserDTO;
-import javax.validation.constraints.Size;
 
+import javax.validation.constraints.Size;
 import java.time.Instant;
 import java.util.Set;
 
@@ -25,10 +28,10 @@ public class ManagedUserVM extends UserDTO {
     public ManagedUserVM(Long id, String login, String password, String firstName, String lastName,
                          String email, boolean activated, String imageUrl, String langKey,
                          String createdBy, Instant createdDate, String lastModifiedBy, Instant lastModifiedDate,
-                        Set<String> authorities) {
+                         Set<String> authorities, Set<Project> projects, Set<Task> tasks, Set<Comment> comments) {
 
         super(id, login, firstName, lastName, email, activated, imageUrl, langKey,
-            createdBy, createdDate, lastModifiedBy, lastModifiedDate,  authorities);
+            createdBy, createdDate, lastModifiedBy, lastModifiedDate,  authorities, projects,tasks, comments );
         this.password = password;
     }
 

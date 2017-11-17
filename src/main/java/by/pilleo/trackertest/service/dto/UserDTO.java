@@ -1,14 +1,12 @@
 package by.pilleo.trackertest.service.dto;
 
 import by.pilleo.trackertest.config.Constants;
-
-import by.pilleo.trackertest.domain.Authority;
-import by.pilleo.trackertest.domain.User;
-
+import by.pilleo.trackertest.domain.*;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.time.Instant;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -53,6 +51,12 @@ public class UserDTO {
 
     private Set<String> authorities;
 
+    private Set<Project> projects;
+    private Set<Task> tasks;
+    private Set<Comment> comments;
+
+
+
     public UserDTO() {
         // Empty constructor needed for Jackson.
     }
@@ -62,13 +66,13 @@ public class UserDTO {
             user.getEmail(), user.getActivated(), user.getImageUrl(), user.getLangKey(),
             user.getCreatedBy(), user.getCreatedDate(), user.getLastModifiedBy(), user.getLastModifiedDate(),
             user.getAuthorities().stream().map(Authority::getName)
-                .collect(Collectors.toSet()));
+                .collect(Collectors.toSet()), user.getProjects(), user.getTasks(), user.getComments());
     }
 
     public UserDTO(Long id, String login, String firstName, String lastName,
-        String email, boolean activated, String imageUrl, String langKey,
-        String createdBy, Instant createdDate, String lastModifiedBy, Instant lastModifiedDate,
-        Set<String> authorities) {
+                   String email, boolean activated, String imageUrl, String langKey,
+                   String createdBy, Instant createdDate, String lastModifiedBy, Instant lastModifiedDate,
+                   Set<String> authorities, Set<Project> projects, Set<Task> tasks, Set<Comment> comments) {
 
         this.id = id;
         this.login = login;
@@ -83,6 +87,9 @@ public class UserDTO {
         this.lastModifiedBy = lastModifiedBy;
         this.lastModifiedDate = lastModifiedDate;
         this.authorities = authorities;
+        this.projects=projects;
+        this.tasks=tasks;
+        this.comments=comments;
     }
 
     public Long getId() {
@@ -149,6 +156,28 @@ public class UserDTO {
         return authorities;
     }
 
+    public Set<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(Set<Project> projects) {
+        this.projects = projects;
+    }
+    public Set<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(Set<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
+    }
     @Override
     public String toString() {
         return "UserDTO{" +

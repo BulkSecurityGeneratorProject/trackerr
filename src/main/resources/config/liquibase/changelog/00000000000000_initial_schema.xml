@@ -298,8 +298,8 @@
             <!--<column name="event_id"/>-->
         <!--</createIndex>-->
     <!--</changeSet>-->
-    <changeSet author="leonid (generated)" id="1510009254488-28">
-        <addForeignKeyConstraint baseColumnNames="status_id" baseTableName="Task" constraintName="fk_task_status_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="Status" />
+    <changeSet author="leonid (generated)" id="1511008254488-28">
+        <addForeignKeyConstraint baseColumnNames="status_id" baseTableName="Task" constraintName="fk_task_status_id" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="id" referencedTableName="Status" />
     </changeSet>
 
     <changeSet author="leonid (generated)" id="1510002254480-37">
@@ -307,32 +307,32 @@
             <column name="user_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="leonid (generated)" id="1510002254180-38">
-        <addForeignKeyConstraint baseColumnNames="Task_has_jhi_user_id" baseTableName="TaskComment" constraintName="fk_TaskComment_Task_has_jhi_user1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="TaskHasUser"/>
+    <changeSet author="leonid (generated)" id="1510002154180-38">
+        <addForeignKeyConstraint baseColumnNames="Task_has_jhi_user_id" baseTableName="TaskComment" constraintName="fk_TaskComment_Task_has_jhi_user1" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="id" referencedTableName="TaskHasUser"/>
     </changeSet>
     <changeSet author="leonid (generated)" id="1510002254480-39">
-        <addForeignKeyConstraint baseColumnNames="Project_id" baseTableName="Task" constraintName="fk_Task_Project1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="Project"/>
+        <addForeignKeyConstraint baseColumnNames="Project_id" baseTableName="Task" constraintName="fk_Task_Project1" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="id" referencedTableName="Project"/>
     </changeSet>
     <changeSet author="leonid (generated)" id="1510002254480-40">
-        <addForeignKeyConstraint baseColumnNames="task_id" baseTableName="TaskHasUser" constraintName="fk_Task_has_jhi_user_Task1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="Task"/>
+        <addForeignKeyConstraint baseColumnNames="task_id" baseTableName="TaskHasUser" constraintName="fk_Task_has_jhi_user_Task1" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="id" referencedTableName="Task"/>
     </changeSet>
     <changeSet author="leonid (generated)" id="1510002254480-41">
-        <addForeignKeyConstraint baseColumnNames="jhi_user_id" baseTableName="TaskHasUser" constraintName="fk_Task_has_jhi_user_jhi_user1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="User"/>
+        <addForeignKeyConstraint baseColumnNames="jhi_user_id" baseTableName="TaskHasUser" constraintName="fk_Task_has_jhi_user_jhi_user1" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="id" referencedTableName="User"/>
     </changeSet>
     <!--<changeSet author="leonid (generated)" id="1510002254480-42">-->
-        <!--<addForeignKeyConstraint baseColumnNames="authority_name" baseTableName="UserHasAuthority" constraintName="fk_authority_name" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="name" referencedTableName="Authority"/>-->
+        <!--<addForeignKeyConstraint baseColumnNames="authority_name" baseTableName="UserHasAuthority" constraintName="fk_authority_name" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="name" referencedTableName="Authority"/>-->
     <!--</changeSet>-->
     <!--<changeSet author="leonid (generated)" id="1510002254480-43">-->
-        <!--<addForeignKeyConstraint baseColumnNames="event_id" baseTableName="jhi_persistent_audit_evt_data" constraintName="fk_evt_pers_audit_evt_data" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="event_id" referencedTableName="jhi_persistent_audit_event"/>-->
+        <!--<addForeignKeyConstraint baseColumnNames="event_id" baseTableName="jhi_persistent_audit_evt_data" constraintName="fk_evt_pers_audit_evt_data" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="event_id" referencedTableName="jhi_persistent_audit_event"/>-->
     <!--</changeSet>-->
     <changeSet author="leonid (generated)" id="1510002254480-44">
-        <addForeignKeyConstraint baseColumnNames="Project_id" baseTableName="UserHasProject" constraintName="fk_jhi_user_has_Project_Project1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="Project"/>
+        <addForeignKeyConstraint baseColumnNames="Project_id" baseTableName="UserHasProject" constraintName="fk_jhi_user_has_Project_Project1" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="id" referencedTableName="Project"/>
     </changeSet>
     <changeSet author="leonid (generated)" id="1510002254480-45">
-        <addForeignKeyConstraint baseColumnNames="jhi_user_id" baseTableName="UserHasProject" constraintName="fk_jhi_user_has_Project_jhi_user1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="User"/>
+        <addForeignKeyConstraint baseColumnNames="jhi_user_id" baseTableName="UserHasProject" constraintName="fk_jhi_user_has_Project_jhi_user1" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="id" referencedTableName="User"/>
     </changeSet>
     <!--<changeSet author="leonid (generated)" id="1510002254480-46">-->
-        <!--<addForeignKeyConstraint baseColumnNames="user_id" baseTableName="UserHasAuthority" constraintName="fk_user_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="User"/>-->
+        <!--<addForeignKeyConstraint baseColumnNames="user_id" baseTableName="UserHasAuthority" constraintName="fk_user_id" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="id" referencedTableName="User"/>-->
     <!--</changeSet>-->
 
 </databaseChangeLog>

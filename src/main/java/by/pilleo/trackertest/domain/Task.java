@@ -1,13 +1,12 @@
 package by.pilleo.trackertest.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * not an ignored comment
@@ -30,7 +29,7 @@ public class Task implements Serializable {
     private String taskDescr;
 
     @OneToMany(mappedBy = "task")
-    @JsonIgnore
+   // @JsonIgnore
     private Set<Comment> comments = new HashSet<>();
 
     @ManyToOne
@@ -40,7 +39,7 @@ public class Task implements Serializable {
     private Project project;
 
     @ManyToMany(mappedBy = "tasks")
-    @JsonIgnore
+   // @JsonIgnore
     private Set<User> users = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

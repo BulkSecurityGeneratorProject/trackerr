@@ -10,6 +10,16 @@
         </dd>
     </dl>
 
+
+    <dt><span>Tasks</span></dt>
+
+    <ul>
+        <li *ngFor="let task of status.tasks; let last = last">
+            <a [routerLink]="['/task', task?.id ]">{{task.taskName}}</a>{{last ? '' : ', '}}
+        </li>
+    </ul>
+
+
     <button type="submit"
             (click)="previousState()"
             class="btn btn-info">

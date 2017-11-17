@@ -22,7 +22,9 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
     project: Project;
     private subscription: Subscription;
     private eventSubscriber: Subscription;
-private currentUser: User;
+    private currentUser: User;
+    private onlyMyTasks: boolean;
+    private filteredTasks: Task[];
 
     constructor(
         private eventManager: JhiEventManager,
@@ -36,10 +38,9 @@ private currentUser: User;
 
 
 
-
     createNewTask(): Task {
         this.registerChangeInProjects();
-
+        this.filteredTasks = this.project.tasks;
         let task  = new Task();
         task.project = this.project;
         let userArray: User[];
@@ -51,8 +52,8 @@ private currentUser: User;
 
         task.taskName = this.project.projectName + ' ' + this.currentUser.login +  ' task ' + new Date()  ;
         task.taskDescr = this.project.projectName + ' ' + this.currentUser.login +  ' task ' + new Date() ;
-         this.taskService.create(task).subscribe((taskk) => task = taskk );
-         this.project.tasks.unshift(task);
+        this.taskService.create(task).subscribe((taskk) => task = taskk );
+        this.project.tasks.unshift(task);
         this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
         });
@@ -62,7 +63,7 @@ private currentUser: User;
     }
 
     ngOnInit() {
-
+        this.onlyMyTasks = false;
         this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
         });

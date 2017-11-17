@@ -86,7 +86,11 @@ public class StatusResource {
     @Timed
     public List<Status> getAllStatuses() {
         log.debug("REST request to get all Statuses");
-        return statusRepository.findAll();
+        List<Status> result = statusRepository.findAllEagerTasks();
+        result.forEach(status->{
+            status.getTasks().forEach(e->e.setStatus(new Status()));
+        });
+        return result;
         }
 
     /**
@@ -99,7 +103,8 @@ public class StatusResource {
     @Timed
     public ResponseEntity<Status> getStatus(@PathVariable Long id) {
         log.debug("REST request to get Status : {}", id);
-        Status status = statusRepository.findOne(id);
+        Status status = statusRepository.findOneEagerTask(id);
+        status.getTasks().forEach(e->e.setStatus(new Status()));
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(status));
     }
 

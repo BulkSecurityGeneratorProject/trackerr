@@ -26,17 +26,17 @@
             </thead>
             <tbody>
             <tr *ngFor="let task of tasks ;trackBy: trackId">
-                <td><a [routerLink]="['../task', task.id ]">{{task.id}}</a></td>
+                <td><a [routerLink]="['../task', task.id ]">{{task.taskName}}</a></td>
                 <td>{{task.taskName}}</td>
                 <td>{{task.taskDescr}}</td>
                 <td>
                     <div *ngIf="task.status">
-                        <a [routerLink]="['../status', task.status?.id ]" >{{task.status?.id}}</a>
+                        <a [routerLink]="['../status', task.status?.id ]" >{{task.status?.statusName}}</a>
                     </div>
                 </td>
                 <td>
                     <div *ngIf="task.project">
-                        <a [routerLink]="['../project', task.project?.id ]" >{{task.project?.id}}</a>
+                        <a [routerLink]="['../project', task.project?.id ]" >{{task.project?.projectName}}</a>
                     </div>
                 </td>
                 <td class="text-right">

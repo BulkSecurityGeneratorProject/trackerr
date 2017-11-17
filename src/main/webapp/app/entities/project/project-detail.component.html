@@ -20,6 +20,10 @@
 
 
         <dt><span>Project tasks</span></dt>
+        <!--<div>-->
+            <!--<input [(ngModel)]="onlyMyTasks" (click)="filterTasks()" type="checkbox" id="subscribeNews"  >-->
+            <!--<label for="subscribeNews">Show only My tasks</label>-->
+        <!--</div>-->
         <ul>
         <li *ngFor="let task of project.tasks; let last = last">
                 <a [routerLink]="['/task', task?.id ]">{{task.taskName}}</a>{{last ? '' : ', '}}

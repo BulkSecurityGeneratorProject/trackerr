@@ -22,14 +22,7 @@
             <th><span jhiTranslate="trackerrApp.user.lastName">Last Name</span></th>
             <th><span jhiTranslate="trackerrApp.user.email">Email</span></th>
             <th><span jhiTranslate="trackerrApp.user.imageUrl">Image Url</span></th>
-            <th><span jhiTranslate="trackerrApp.user.activated">Activated</span></th>
-            <th><span jhiTranslate="trackerrApp.user.langKey">Lang Key</span></th>
-            <th><span jhiTranslate="trackerrApp.user.createdBy">Created By</span></th>
-            <th><span jhiTranslate="trackerrApp.user.createdDate">Created Date</span></th>
-            <th><span jhiTranslate="trackerrApp.user.lastModifiedBy">Last Modified By</span></th>
-            <th><span jhiTranslate="trackerrApp.user.lastModifiedDate">Last Modified Date</span></th>
-            <th><span jhiTranslate="trackerrApp.user.projects">Projects</span></th>
-            <th><span jhiTranslate="trackerrApp.user.tasks">Tasks</span></th>
+
             <th></th>
             </tr>
             </thead>
@@ -41,22 +34,7 @@
                 <td>{{user.lastName}}</td>
                 <td>{{user.email}}</td>
                 <td>{{user.imageUrl}}</td>
-                <td>{{user.activated}}</td>
-                <td>{{user.langKey}}</td>
-                <td>{{user.createdBy}}</td>
-                <td>{{user.createdDate | date:'medium'}}</td>
-                <td>{{user.lastModifiedBy}}</td>
-                <td>{{user.lastModifiedDate | date:'medium'}}</td>
-                <td>
-                    <span *ngFor="let projects of user.projects; let last = last">
-                            <a class="form-control-static" [routerLink]="['../project', projects?.id ]">{{projects.id}}</a>{{last ? '' : ', '}}
-                        </span>
-                </td>
-                <td>
-                    <span *ngFor="let tasks of user.tasks; let last = last">
-                            <a class="form-control-static" [routerLink]="['../task', tasks?.id ]">{{tasks.id}}</a>{{last ? '' : ', '}}
-                        </span>
-                </td>
+
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

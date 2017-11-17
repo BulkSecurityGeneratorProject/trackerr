@@ -24,11 +24,20 @@
                 <a [routerLink]="['/project', task.project?.id]">{{task.project?.projectName}}</a>
             </div>
 
-        </dd>        <dt><span jhiTranslate="trackerrApp.task.comments">Comments</span></dt>
+        </dd>
+        <dt><span jhiTranslate="trackerrApp.task.comments">Comments</span></dt>
         <dd>
             <ul>
                 <li *ngFor="let comment of task.comments; let last = last">
                     <a [routerLink]="['/comment', comment?.id ]">{{comment.user.login}}: {{comment.comment}}</a>{{last ? '' : ', '}}
+                </li>
+            </ul>
+        </dd>
+        <dt><span jhiTranslate="trackerrApp.task.users">Users</span></dt>
+        <dd>
+            <ul>
+                <li *ngFor="let user of task.users; let last = last">
+                    <a [routerLink]="['/user', user?.id ]">{{user.login}}: {{user.firstName}} {{user.lastName}}</a>{{last ? '' : ', '}}
                 </li>
             </ul>
             <button type="button"

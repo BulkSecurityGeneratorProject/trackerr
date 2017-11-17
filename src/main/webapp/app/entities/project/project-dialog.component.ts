@@ -126,12 +126,3 @@ export class ProjectPopupComponent implements OnInit, OnDestroy {
     }
 }
 
-@Pipe({ name: 'filter' })
-export class FilterPipe implements PipeTransform {
-    public transform(values: User[], filter: string): User[] {
-        if (!values || !values.length) return [];
-        if (!filter) return values;
-
-        return values.filter( (v) => v.authorities.findIndex(( e ) => e.valueOf() === filter.valueOf()))  ;
-    }
-}

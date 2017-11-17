@@ -37,7 +37,12 @@ users: User[];
         this.principal.identity().then((account) => {
             this.currentAccount = account;
         });
+
+
         this.registerChangeInUsers();
+
+        this.users = [];
+        this.users.push(this.currentAccount);
     }
 
     ngOnDestroy() {

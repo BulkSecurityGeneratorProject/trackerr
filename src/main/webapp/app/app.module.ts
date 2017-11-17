@@ -25,7 +25,6 @@ import {
     ActiveMenuDirective,
     ErrorComponent
 } from './layouts';
-import {FilterPipe} from './entities/project/project-dialog.component';
 
 @NgModule({
     imports: [
@@ -45,8 +44,7 @@ import {FilterPipe} from './entities/project/project-dialog.component';
         ErrorComponent,
         PageRibbonComponent,
         ActiveMenuDirective,
-        FooterComponent,
-        FilterPipe
+        FooterComponent
     ],
     providers: [
         ProfileService,

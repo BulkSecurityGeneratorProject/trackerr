@@ -23,7 +23,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let status of statuses ;trackBy: trackId">
-                <td><a [routerLink]="['../status', status.id ]">{{status.id}}</a></td>
+                <td><a [routerLink]="['../status', status.id ]">{{status.statusName}}</a></td>
                 <td>{{status.statusName}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">

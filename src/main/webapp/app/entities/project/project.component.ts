@@ -1,12 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
-import { NgIf } from '@angular/common';
+import { JhiEventManager,  JhiAlertService } from 'ng-jhipster';
 import { Project } from './project.model';
 import { ProjectService } from './project.service';
-import {  Account, LoginModalService , ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
+import {  Account,  Principal, ResponseWrapper } from '../../shared';
 import {UserService} from '../user/user.service';
+import {User} from '../user/user.model';
 
 @Component({
     selector: 'jhi-project',
@@ -17,6 +16,8 @@ export class ProjectComponent implements OnInit, OnDestroy {
     currentAccount: Account;
     eventSubscriber: Subscription;
     canCreateProjects: boolean;
+    private currentUser: User;
+
     constructor(
         private projectService: ProjectService,
         private jhiAlertService: JhiAlertService,
@@ -40,12 +41,12 @@ export class ProjectComponent implements OnInit, OnDestroy {
             this.currentAccount = account;
             this.canCreateProjects = false;
             console.log(this.currentAccount.authorities);
-            this.canCreateProjects = this.currentAccount.authorities.some((auth) => auth === 'Manager');
-            let i = 0;
-            for ( i < this.currentAccount.authorities.length; i++; ) {
-                if (this.currentAccount.authorities[i] === 'Manager' ) {this.canCreateProjects = true;  }
-            }
-            console.log(this.currentAccount.authorities.some((auth) => auth === 'Manager'));
+            // this.canCreateProjects = this.currentAccount.authorities.some((auth) => auth === 'Manager');
+            // let i = 0;
+            // for ( i < this.currentUser.authorities.length; i++; ) {
+            //     if (this.currentUser.authorities[i] === 'Manager' ) {this.canCreateProjects = true;  }
+            // }
+            // console.log(this.currentUser.authorities.some((auth) => auth === 'Manager'));
         });
         this.registerChangeInProjects();
     }

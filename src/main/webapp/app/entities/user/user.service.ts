@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { SERVER_API_URL } from '../../app.constants';
@@ -10,10 +10,11 @@ import { ResponseWrapper, createRequestOption } from '../../shared';
 import {Principal} from '../../shared/auth/principal.service';
 
 @Injectable()
-export class UserService {
+export class UserService  {
 
     private resourceUrl = SERVER_API_URL + 'api/users';
     private account: Account;
+readonly currentUser: User = this.findCurrentUser() ;
 
     constructor(
         private http: Http,

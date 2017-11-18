@@ -7,8 +7,7 @@ import { Project } from './project.model';
 import { ProjectService } from './project.service';
 import {TaskService} from '../task/task.service';
 import {Task} from '../task/task.model';
-import {UserRouteAccessService} from '../../shared/auth/user-route-access-service';
-import {Principal} from '../../shared/auth/principal.service';
+
 import {UserService} from '../user/user.service';
 import {User} from '../user/user.model';
 import {ResponseWrapper} from '../../shared/model/response-wrapper.model';
@@ -26,6 +25,7 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
     currentUser: User;
     onlyMyTasks: boolean;
     filteredTasks: Task[];
+    canModifyy: boolean;
 
     constructor(
         private eventManager: JhiEventManager,
@@ -36,6 +36,16 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
 
     ) {
         this.currentUser = userService.findCurrentUser() ;
+
+    }
+
+    canModify(): boolean {
+        let result: boolean;
+        result = false;
+        if ( this.project.users.some((e) => e.id === this.currentUser.id)  ) {
+            result = true;
+        }
+        return result;
 
     }
 
@@ -82,11 +92,11 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
             this.load(params['id']);
         });
         this.currentUser = this.userService.findCurrentUser();
-        console.log(this.currentUser);
+        console.log(this.userService.currentUser);
         this.filteredTasks = this.project.tasks;
 
         this.registerChangeInProjects();
-
+        this.canModifyy = this.canModify()
     }
 
     load(id) {

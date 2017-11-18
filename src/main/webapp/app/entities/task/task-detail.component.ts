@@ -8,7 +8,6 @@ import { TaskService } from './task.service';
 import {UserService} from '../user/user.service';
 import {User} from '../user/user.model';
 import {Comment} from '../comment/comment.model';
-import {Observable} from 'rxjs/Observable';
 import {CommentService} from '../comment/comment.service';
 
 @Component({
@@ -60,7 +59,7 @@ export class TaskDetailComponent implements OnInit, OnDestroy {
             this.task = task;
         });
 
-        this.currentUser = this.userService.findCurrentUser();
+      //  this.currentUser = this.userService.findCurrentUser();
 
     }
     previousState() {

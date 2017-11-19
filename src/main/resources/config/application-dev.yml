@@ -53,7 +53,7 @@ spring:
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
         username: root
-        password: confiden+-19
+        password: 
         url: jdbc:mysql://localhost:3306/tracker?useUnicode=true&characterEncoding=utf8&useSSL=false
         hikari:
             data-source-properties:
